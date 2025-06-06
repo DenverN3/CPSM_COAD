@@ -12,8 +12,11 @@ Filters genes based on variance and expression levels
 The pipeline implements four CPSM model types:
 
 Model 1: Clinical features only (baseline)
+
 Model 2: Prognostic Index (PI) score only (from LASSO regression)
+
 Model 3: Clinical features + PI score
+
 Model 4: Clinical features + individual genes + PI score
 
 3. Feature Selection Methods
@@ -92,15 +95,16 @@ Usage
 
 Basic CPSM Analysis:
 
-rresults <- run_tcga_coad_cpsm_analysis_fixed()
+results <- run_tcga_coad_cpsm_analysis_fixed()
 
 70/30 Split Analysis:
 
-rresults_70_30 <- run_cpsm_pipeline_70_30()
+results_70_30 <- run_cpsm_pipeline_70_30()
 
 Calculate Comprehensive Metrics:
 
 rsurvival_metrics <- calculate_comprehensive_survival_metrics(results)
+
 Key Improvements Implemented
 
 Data Quality: Enhanced missing value handling and normalization
