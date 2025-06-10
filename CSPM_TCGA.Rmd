@@ -1391,7 +1391,7 @@ run_full_gene_analysis_80_20_internal <- function(combined_df) {
   surv_test <- Surv(test_data$OS.time, test_data$OS)
   
   # Univariate Cox for feature selection
-  pvals <- sapply(6:ncol(train_data), function(i) {
+  pvals <- sapply(7:ncol(train_data), function(i) {
     gene <- train_data[, i]
     if (length(unique(gene)) > 1) {
       fit <- tryCatch(coxph(surv_train ~ gene), error = function(e) NULL)
@@ -1400,7 +1400,7 @@ run_full_gene_analysis_80_20_internal <- function(combined_df) {
   })
   
   sig_genes <- which(pvals < 0.01)
-  top_genes <- colnames(train_data)[5 + sig_genes[1:min(10, length(sig_genes))]]
+  top_genes <- colnames(train_data)[6 + sig_genes[1:min(10, length(sig_genes))]]
   
   # Build Cox model with top genes + clinical vars
   features <- c("Age", "gender", top_genes)
