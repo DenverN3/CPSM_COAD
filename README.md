@@ -112,6 +112,8 @@ Feature Selection: Multiple approaches to identify predictive genes
 Model Robustness: Error handling for LASSO failures
 Performance Metrics: Comprehensive evaluation including IBS and time-dependent AUC
 Reproducibility: Seed setting and consistent factor level handling
+Bug Fixes: Corrected gene indexing in feature selection to start at the proper
+           column, ensuring only gene expression data are considered
 
 Future Directions
 
