@@ -94,12 +94,14 @@ Dependencies
 - ggplot2
 - org.Hs.eg.db
 - AnnotationDbi
+
 Data Structure
 
 Samples: ~393 TCGA-COAD samples after quality control
 Features:
 
 Clinical: Age, gender, tumor stage
+
 Genomic: 5,000-40,000 gene expression features
 
 
