@@ -55,8 +55,7 @@ source("CPSM_TCGA_COAD_Pipeline.R")
 
 ## Part of Pan-Cancer Analysis
 
-This pipeline is one of seven TCGA cohorts (COAD, BRCA, GBM, LUAD, LUSC, PAAD, PRAD) analysed for hypoxia-associated survival genes. Cross-cancer findings include 193 significant hypoxia hits and 6 genes significant in 3+ cancer types.
-
+This pipeline is one of seven TCGA cohorts (COAD, BRCA, GBM, LUAD, LUSC, PAAD, PRAD) analysed for hypoxia-associated survival genes.
 ## References
 
 1. Liu J et al. An Integrated TCGA Pan-Cancer Clinical Data Resource. *Cell*. 2018;173(2):400-416. [doi:10.1016/j.cell.2018.02.052](https://doi.org/10.1016/j.cell.2018.02.052)
