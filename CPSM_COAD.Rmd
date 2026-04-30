@@ -1,0 +1,1446 @@
+---
+title: "CPSM_COAD"
+output: html_document
+date: "2026-04-23"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+# =============================================================================
+# CPSM TCGA-COAD SURVIVAL ANALYSIS PIPELINE
+# =============================================================================
+# Author  : Denver Ncube
+# Date    : 2025-05-31 (Revised: aligned with canonical CPSM package pipeline)
+# Cancer  : Colorectal Adenocarcinoma (TCGA-COAD)
+# Package : CPSM (Bioconductor) – MTLR-based survival modeling
+#
+# Pipeline follows the official CPSM vignette exactly:
+#   Step 1  – Data download & CPSM-format preparation (TCGA via TCGAbiolinks)
+#   Step 2  – data_process_f()          : OS days → months, drop missing
+#   Step 3  – tr_test_f()               : 80/20 train-test split
+#   Step 4  – train_test_normalization_f(): log2 + quantile normalisation
+#   Step 5a – Lasso_PI_scores_f()       : LASSO feature selection + PI score
+#   Step 5b – Univariate_sig_features_f(): univariate Cox feature selection
+#   Step 6  – MTLR_pred_model_f()       : 4 MTLR models (types 1-2-3-4/5)
+#   Step 7  – surv_curve_plots_f()      : survival curve visualisation
+#   Step 8  – mean_median_surv_barplot_f(): mean/median survival bar plots
+#   Step 9  – predict_survival_risk_group_f(): RSF risk-group prediction
+#   Step 10 – km_overlay_plot_f()       : KM overlay for individual samples
+#   Step 11 – Nomogram_generate_f()     : nomogram for 1/3/5/10-yr survival
+#
+# EXPORT:
+#   • All survival-significant genes + HR, coef, p-value, C-index   (CSV)
+#   • LASSO-selected genes + beta coefficients                       (CSV)
+#   • Model performance comparison across all 4 models               (CSV)
+#   • Comprehensive plots (volcano, KM, survival curves, bar plots)  (PNG)
+#
+# BUG FIX:
+#   A known typo on line 581 of MTLR_pred_model_f.R (missing $ operator)
+#   is patched in-memory before the function is sourced.
+# =============================================================================
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 0. INSTALLATION (run once)
+# ─────────────────────────────────────────────────────────────────────────────
+
+if (FALSE) {   # guard – comment out on first run
+  if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+  BiocManager::install("CPSM")
+  BiocManager::install("TCGAbiolinks")
+  BiocManager::install("org.Hs.eg.db")
+  BiocManager::install("AnnotationDbi")
+  install.packages(c("writexl", "ggplot2", "ggrepel", "patchwork",
+                     "survminer", "survival", "glmnet", "MTLR",
+                     "randomForestSRC", "openxlsx"))
+}
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 1. LIBRARIES
+# ─────────────────────────────────────────────────────────────────────────────
+
+suppressPackageStartupMessages({
+  library(CPSM)
+  library(TCGAbiolinks)
+  library(SummarizedExperiment)
+  library(survival)
+  library(glmnet)
+  library(MTLR)
+  library(ggplot2)
+  library(ggrepel)
+  library(patchwork)
+  library(survminer)
+  library(dplyr)
+  library(writexl)
+  library(openxlsx)
+  library(org.Hs.eg.db)
+  library(AnnotationDbi)
+})
+
+set.seed(42)
+
+# ─────────────────────────────────────────────────────────────────────────────
+# MTLR_pred_model_f — corrected definition (bug on original line 581 fixed)
+#
+# The published CPSM package contains a typo in Model_type == 3 block:
+#   WRONG:  survival_summary_tr3Median <- as.numeric(survival_summary_tr3$Median)
+#   RIGHT:  survival_summary_tr3$Median <- as.numeric(survival_summary_tr3$Median)
+# The stray variable name causes a non-numeric arithmetic error downstream.
+# We override the function in the current session by defining it here directly.
+# ─────────────────────────────────────────────────────────────────────────────
+
+MTLR_pred_model_f <- function(train_clin_data, test_clin_data, Model_type,
+                              train_features_data, test_features_data,
+                              Clin_Feature_List, surv_time, surv_event,
+                              nfolds = 5) {
+
+  if (length(train_clin_data) == 0 || length(test_clin_data) == 0 ||
+      length(Model_type) == 0 || length(train_features_data) == 0 ||
+      length(test_features_data) == 0 || length(Clin_Feature_List) == 0 ||
+      length(surv_time) == 0 || length(surv_event) == 0)
+    message("Error: Empty input variable detected.")
+
+  tr_clin1 <- train_clin_data
+  te_clin1 <- test_clin_data
+  colnames(tr_clin1)[colnames(tr_clin1) == surv_time]  <- "OS_month"
+  colnames(tr_clin1)[colnames(tr_clin1) == surv_event] <- "OS"
+  colnames(te_clin1)[colnames(te_clin1) == surv_time]  <- "OS_month"
+  colnames(te_clin1)[colnames(te_clin1) == surv_event] <- "OS"
+
+  train_features_data1 <- train_features_data
+  test_features_data1  <- test_features_data
+  tr_data2 <- cbind(tr_clin1, train_features_data1)
+  te_data2 <- cbind(te_clin1, test_features_data1)
+  ftr_list <- Clin_Feature_List
+
+  # ── Model 1: Clinical features only ────────────────────────────────────────
+  if (Model_type == 1) {
+    sel_clin_tr  <- as.data.frame(tr_clin1[, colnames(tr_clin1) %in% ftr_list$ID, drop = FALSE])
+    sel_clin_te  <- as.data.frame(te_clin1[, colnames(te_clin1) %in% ftr_list$ID, drop = FALSE])
+    sel_clin_tr1 <- cbind(tr_clin1["OS"], tr_clin1["OS_month"], sel_clin_tr)
+    sel_clin_te1 <- cbind(te_clin1["OS"], te_clin1["OS_month"], sel_clin_te)
+    sel_clin_tr2 <- na.omit(sel_clin_tr1)
+    sel_clin_te2 <- na.omit(sel_clin_te1)
+    formula1 <- survival::Surv(OS_month, OS) ~ .
+    cv_result <- MTLR::mtlr_cv(formula1, sel_clin_tr2, C1_vec = c(0.01, 0.1, 1),
+                                nintervals = 15, previous_weights = FALSE,
+                                nfolds = nfolds, foldtype = "fullstrat",
+                                loss = "ll", verbose = FALSE)
+    best_C1 <- cv_result$best_C1
+    Mod1 <- MTLR::mtlr(formula = formula1, data = sel_clin_tr2, C1 = best_C1)
+    survival_curves_tr  <- predict(Mod1, sel_clin_tr2, type = "survivalcurve")
+    mean_survival_tr    <- predict(Mod1, sel_clin_tr2, type = "mean_time")
+    median_survival_tr  <- predict(Mod1, sel_clin_tr2, type = "median_time")
+    event_prob_tr       <- predict(Mod1, sel_clin_tr2, type = "prob_event")
+    colnames(survival_curves_tr) <- c("time_point", rownames(sel_clin_tr2))
+    survCurves_te_df    <- as.data.frame(predict(Mod1, sel_clin_te2, type = "survivalcurve"))
+    colnames(survCurves_te_df)   <- c("time_point", rownames(sel_clin_te2))
+    mean_survival_te   <- predict(Mod1, sel_clin_te2, type = "mean_time")
+    median_survival_te <- predict(Mod1, sel_clin_te2, type = "median_time")
+    event_prob_te      <- predict(Mod1, sel_clin_te2, type = "prob_event")
+    survival_results_te <- cbind(Mean_Survival = mean_survival_te,
+                                 Median_Survival = median_survival_te,
+                                 Event_Probability = event_prob_te,
+                                 Actual_OS_Time = sel_clin_te2$OS_month,
+                                 OS_Event = sel_clin_te2$OS)
+    rownames(survival_results_te) <- rownames(sel_clin_te2)
+    survival_summary_te <- as.data.frame(cbind(IDs = rownames(sel_clin_te2),
+                                               Mean = mean_survival_te,
+                                               Median = median_survival_te,
+                                               OS_month = sel_clin_te2$OS_month))
+    survival_summary_tr <- as.data.frame(cbind(IDs = rownames(sel_clin_tr2),
+                                               Mean = mean_survival_tr,
+                                               Median = median_survival_tr,
+                                               OS_month = sel_clin_tr2$OS_month))
+    surv_obj1_tr <- survival::Surv(sel_clin_tr2$OS_month, sel_clin_tr2$OS)
+    surv_obj1_te <- survival::Surv(sel_clin_te2$OS_month, sel_clin_te2$OS)
+    c_index1_tr  <- round(survival::concordance(surv_obj1_tr ~ median_survival_tr)$concordance, 2)
+    c_index1_te  <- round(survival::concordance(surv_obj1_te ~ median_survival_te)$concordance, 2)
+    survival_summary_tr$OS_month <- as.numeric(survival_summary_tr$OS_month)
+    survival_summary_tr$Mean     <- as.numeric(survival_summary_tr$Mean)
+    survival_summary_tr$Median   <- as.numeric(survival_summary_tr$Median)
+    survival_summary_te$OS_month <- as.numeric(survival_summary_te$OS_month)
+    survival_summary_te$Mean     <- as.numeric(survival_summary_te$Mean)
+    survival_summary_te$Median   <- as.numeric(survival_summary_te$Median)
+    mean_mae_tr   <- round(mean(abs(survival_summary_tr$OS_month - survival_summary_tr$Mean), na.rm = TRUE), 2)
+    median_mae_tr <- round(median(abs(survival_summary_tr$OS_month - survival_summary_tr$Median), na.rm = TRUE), 2)
+    mean_mae_te   <- round(mean(abs(survival_summary_te$OS_month - survival_summary_te$Mean), na.rm = TRUE), 2)
+    median_mae_te <- round(median(abs(survival_summary_te$OS_month - survival_summary_te$Median), na.rm = TRUE), 2)
+    sp_tr  <- predict(Mod1, sel_clin_tr2, type = "prob_times")
+    ibs_tr <- round(SurvMetrics::IBS(surv_obj1_tr, sp_matrix = t(as.matrix(sp_tr)[,-1])[,-1], sp_tr$time[-1]), 3)
+    sp_te  <- predict(Mod1, sel_clin_te2, type = "prob_times")
+    ibs_te <- round(SurvMetrics::IBS(surv_obj1_te, sp_matrix = t(as.matrix(sp_te)[,-1])[,-1], sp_te$time[-1]), 3)
+    Error_mat_tr <- cbind(c_index1_tr, mean_mae_tr, median_mae_tr, round(ibs_tr, 3))
+    Error_mat_te <- cbind(c_index1_te, mean_mae_te, median_mae_te, round(ibs_te, 3))
+    colnames(Error_mat_tr) <- colnames(Error_mat_te) <- c("C_index", "Mean_MAE", "Median_MAE", "IBS")
+    Error_mat <- rbind(Error_mat_tr, Error_mat_te)
+    rownames(Error_mat) <- c("Training_set", "Test_set")
+    survCurves_df      <- survCurves_te_df
+    mean_median_surv_d <- survival_summary_te
+    surv_res           <- survival_results_te
+  }
+
+  # ── Model 2: PI score only ──────────────────────────────────────────────────
+  else if (Model_type == 2) {
+    sel_clin_tr1 <- cbind(tr_clin1["OS"], tr_clin1["OS_month"], tr_data2["PI"])
+    sel_clin_te1 <- cbind(te_clin1["OS"], te_clin1["OS_month"], te_data2["PI"])
+    sel_clin_tr2 <- na.omit(sel_clin_tr1)
+    sel_clin_te2 <- na.omit(sel_clin_te1)
+    formula2 <- survival::Surv(OS_month, OS) ~ .
+    cv_result <- MTLR::mtlr_cv(formula2, sel_clin_tr2, C1_vec = c(0.01, 0.1, 1),
+                                nintervals = 15, previous_weights = FALSE,
+                                nfolds = nfolds, foldtype = "fullstrat",
+                                loss = "ll", verbose = FALSE)
+    best_C1 <- cv_result$best_C1
+    Mod2 <- MTLR::mtlr(formula = formula2, data = sel_clin_tr2, C1 = best_C1)
+    mean_survival_tr2   <- predict(Mod2, sel_clin_tr2, type = "mean_time")
+    median_survival_tr2 <- predict(Mod2, sel_clin_tr2, type = "median_time")
+    mean_survival_te2   <- predict(Mod2, sel_clin_te2, type = "mean_time")
+    median_survival_te2 <- predict(Mod2, sel_clin_te2, type = "median_time")
+    event_prob_te2      <- predict(Mod2, sel_clin_te2, type = "prob_event")
+    survCurves_te_df2   <- as.data.frame(predict(Mod2, sel_clin_te2, type = "survivalcurve"))
+    colnames(survCurves_te_df2) <- c("time_point", rownames(sel_clin_te2))
+    survival_results_te2 <- cbind(Mean_Survival = mean_survival_te2,
+                                  Median_Survival = median_survival_te2,
+                                  Event_Probability = event_prob_te2,
+                                  Actual_OS_Time = sel_clin_te2$OS_month,
+                                  OS_Event = sel_clin_te2$OS)
+    rownames(survival_results_te2) <- rownames(sel_clin_te2)
+    survival_summary_te2 <- as.data.frame(cbind(IDs = rownames(sel_clin_te2),
+                                                Mean = mean_survival_te2,
+                                                Median = median_survival_te2,
+                                                OS_month = sel_clin_te2$OS_month))
+    survival_summary_tr2 <- as.data.frame(cbind(IDs = rownames(sel_clin_tr2),
+                                                Mean = mean_survival_tr2,
+                                                Median = median_survival_tr2,
+                                                OS_month = sel_clin_tr2$OS_month))
+    surv_obj1_tr2 <- survival::Surv(sel_clin_tr2$OS_month, sel_clin_tr2$OS)
+    surv_obj1_te2 <- survival::Surv(sel_clin_te2$OS_month, sel_clin_te2$OS)
+    c_index1_tr2  <- round(survival::concordance(surv_obj1_tr2 ~ median_survival_tr2)$concordance, 2)
+    c_index1_te2  <- round(survival::concordance(surv_obj1_te2 ~ median_survival_te2)$concordance, 2)
+    for (s in list(quote(survival_summary_tr2), quote(survival_summary_te2))) {
+      df <- eval(s); df$OS_month <- as.numeric(df$OS_month)
+      df$Mean <- as.numeric(df$Mean); df$Median <- as.numeric(df$Median); assign(deparse(s), df)
+    }
+    survival_summary_tr2$OS_month <- as.numeric(survival_summary_tr2$OS_month)
+    survival_summary_tr2$Mean     <- as.numeric(survival_summary_tr2$Mean)
+    survival_summary_tr2$Median   <- as.numeric(survival_summary_tr2$Median)
+    survival_summary_te2$OS_month <- as.numeric(survival_summary_te2$OS_month)
+    survival_summary_te2$Mean     <- as.numeric(survival_summary_te2$Mean)
+    survival_summary_te2$Median   <- as.numeric(survival_summary_te2$Median)
+    mean_mae_tr2   <- round(mean(abs(survival_summary_tr2$OS_month - survival_summary_tr2$Mean), na.rm = TRUE), 2)
+    median_mae_tr2 <- round(median(abs(survival_summary_tr2$OS_month - survival_summary_tr2$Median), na.rm = TRUE), 2)
+    mean_mae_te2   <- round(mean(abs(survival_summary_te2$OS_month - survival_summary_te2$Mean), na.rm = TRUE), 2)
+    median_mae_te2 <- round(median(abs(survival_summary_te2$OS_month - survival_summary_te2$Median), na.rm = TRUE), 2)
+    sp_tr2  <- predict(Mod2, sel_clin_tr2, type = "prob_times")
+    ibs_tr2 <- round(SurvMetrics::IBS(surv_obj1_tr2, sp_matrix = t(as.matrix(sp_tr2)[,-1])[,-1], sp_tr2$time[-1]), 3)
+    sp_te2  <- predict(Mod2, sel_clin_te2, type = "prob_times")
+    ibs_te2 <- round(SurvMetrics::IBS(surv_obj1_te2, sp_matrix = t(as.matrix(sp_te2)[,-1])[,-1], sp_te2$time[-1]), 3)
+    Error_mat_tr2 <- cbind(c_index1_tr2, mean_mae_tr2, median_mae_tr2, round(ibs_tr2, 3))
+    Error_mat_te2 <- cbind(c_index1_te2, mean_mae_te2, median_mae_te2, round(ibs_te2, 3))
+    colnames(Error_mat_tr2) <- colnames(Error_mat_te2) <- c("C_index", "Mean_MAE", "Median_MAE", "IBS")
+    Error_mat2 <- rbind(Error_mat_tr2, Error_mat_te2)
+    rownames(Error_mat2) <- c("Training_set", "Test_set")
+    survCurves_df      <- survCurves_te_df2
+    mean_median_surv_d <- survival_summary_te2
+    surv_res           <- survival_results_te2
+    Error_mat          <- Error_mat2
+  }
+
+  # ── Model 3: PI + Clinical ──────────────────────────────────────────────────
+  else if (Model_type == 3) {
+    sel_clin_tr  <- as.data.frame(tr_data2[, colnames(tr_data2) %in% ftr_list$ID, drop = FALSE])
+    sel_clin_te  <- as.data.frame(te_data2[, colnames(te_data2) %in% ftr_list$ID, drop = FALSE])
+    sel_clin_tr1 <- cbind(tr_clin1["OS"], tr_clin1["OS_month"], sel_clin_tr)
+    sel_clin_te1 <- cbind(te_clin1["OS"], te_clin1["OS_month"], sel_clin_te)
+    sel_clin_tr2 <- na.omit(sel_clin_tr1)
+    sel_clin_te2 <- na.omit(sel_clin_te1)
+    formula3 <- survival::Surv(OS_month, OS) ~ .
+    cv_result <- MTLR::mtlr_cv(formula3, sel_clin_tr2, C1_vec = c(0.01, 0.1, 1),
+                                nintervals = 15, previous_weights = FALSE,
+                                nfolds = nfolds, foldtype = "fullstrat",
+                                loss = "ll", verbose = FALSE)
+    best_C1 <- cv_result$best_C1
+    Mod3 <- MTLR::mtlr(formula = formula3, data = sel_clin_tr2, C1 = best_C1)
+    mean_survival_tr3   <- predict(Mod3, sel_clin_tr2, type = "mean_time")
+    median_survival_tr3 <- predict(Mod3, sel_clin_tr2, type = "median_time")
+    mean_survival_te3   <- predict(Mod3, sel_clin_te2, type = "mean_time")
+    median_survival_te3 <- predict(Mod3, sel_clin_te2, type = "median_time")
+    event_prob_te3      <- predict(Mod3, sel_clin_te2, type = "prob_event")
+    survCurves_te_df3   <- as.data.frame(predict(Mod3, sel_clin_te2, type = "survivalcurve"))
+    colnames(survCurves_te_df3) <- c("time_point", rownames(sel_clin_te2))
+    survival_results_te3 <- cbind(Mean_Survival = mean_survival_te3,
+                                  Median_Survival = median_survival_te3,
+                                  Event_Probability = event_prob_te3,
+                                  Actual_OS_Time = sel_clin_te2$OS_month,
+                                  OS_Event = sel_clin_te2$OS)
+    rownames(survival_results_te3) <- rownames(sel_clin_te2)
+    survival_summary_te3 <- as.data.frame(cbind(IDs = rownames(sel_clin_te2),
+                                                Mean = mean_survival_te3,
+                                                Median = median_survival_te3,
+                                                OS_month = sel_clin_te2$OS_month))
+    survival_summary_tr3 <- as.data.frame(cbind(IDs = rownames(sel_clin_tr2),
+                                                Mean = mean_survival_tr3,
+                                                Median = median_survival_tr3,
+                                                OS_month = sel_clin_tr2$OS_month))
+    surv_obj1_tr3 <- survival::Surv(sel_clin_tr2$OS_month, sel_clin_tr2$OS)
+    surv_obj1_te3 <- survival::Surv(sel_clin_te2$OS_month, sel_clin_te2$OS)
+    c_index1_tr3  <- round(survival::concordance(surv_obj1_tr3 ~ median_survival_tr3)$concordance, 2)
+    c_index1_te3  <- round(survival::concordance(surv_obj1_te3 ~ median_survival_te3)$concordance, 2)
+    survival_summary_tr3$OS_month <- as.numeric(survival_summary_tr3$OS_month)
+    survival_summary_tr3$Mean     <- as.numeric(survival_summary_tr3$Mean)
+    survival_summary_tr3$Median   <- as.numeric(survival_summary_tr3$Median)  # BUG FIX: was survival_summary_tr3Median
+    survival_summary_te3$OS_month <- as.numeric(survival_summary_te3$OS_month)
+    survival_summary_te3$Mean     <- as.numeric(survival_summary_te3$Mean)
+    survival_summary_te3$Median   <- as.numeric(survival_summary_te3$Median)
+    mean_mae_tr3   <- round(mean(abs(survival_summary_tr3$OS_month - survival_summary_tr3$Mean), na.rm = TRUE), 2)
+    median_mae_tr3 <- round(median(abs(survival_summary_tr3$OS_month - survival_summary_tr3$Median), na.rm = TRUE), 2)
+    mean_mae_te3   <- round(mean(abs(survival_summary_te3$OS_month - survival_summary_te3$Mean), na.rm = TRUE), 2)
+    median_mae_te3 <- round(median(abs(survival_summary_te3$OS_month - survival_summary_te3$Median), na.rm = TRUE), 2)
+    sp_tr3  <- predict(Mod3, sel_clin_tr2, type = "prob_times")
+    ibs_tr3 <- round(SurvMetrics::IBS(surv_obj1_tr3, sp_matrix = t(as.matrix(sp_tr3)[,-1])[,-1], sp_tr3$time[-1]), 3)
+    sp_te3  <- predict(Mod3, sel_clin_te2, type = "prob_times")
+    ibs_te3 <- round(SurvMetrics::IBS(surv_obj1_te3, sp_matrix = t(as.matrix(sp_te3)[,-1])[,-1], sp_te3$time[-1]), 3)
+    Error_mat_tr3 <- cbind(c_index1_tr3, mean_mae_tr3, median_mae_tr3, round(ibs_tr3, 3))
+    Error_mat_te3 <- cbind(c_index1_te3, mean_mae_te3, median_mae_te3, round(ibs_te3, 3))
+    colnames(Error_mat_tr3) <- colnames(Error_mat_te3) <- c("C_index", "Mean_MAE", "Median_MAE", "IBS")
+    Error_mat3 <- rbind(Error_mat_tr3, Error_mat_te3)
+    rownames(Error_mat3) <- c("Training_set", "Test_set")
+    survCurves_df      <- survCurves_te_df3
+    mean_median_surv_d <- survival_summary_te3
+    surv_res           <- survival_results_te3
+    Error_mat          <- Error_mat3
+  }
+
+  # ── Model 4: Univariate genes (± Clinical) ──────────────────────────────────
+  else if (Model_type == 4) {
+    sel_clin_tr  <- as.data.frame(tr_data2[, colnames(tr_data2) %in% ftr_list$ID, drop = FALSE])
+    sel_clin_te  <- as.data.frame(te_data2[, colnames(te_data2) %in% ftr_list$ID, drop = FALSE])
+    sel_clin_tr1 <- cbind(tr_clin1["OS"], tr_clin1["OS_month"], sel_clin_tr)
+    sel_clin_te1 <- cbind(te_clin1["OS"], te_clin1["OS_month"], sel_clin_te)
+    sel_clin_tr2 <- na.omit(sel_clin_tr1)
+    sel_clin_te2 <- na.omit(sel_clin_te1)
+    formula5 <- survival::Surv(OS_month, OS) ~ .
+    cv_result <- MTLR::mtlr_cv(formula5, sel_clin_tr2, C1_vec = c(0.01, 0.1, 1),
+                                nintervals = 15, previous_weights = FALSE,
+                                nfolds = nfolds, foldtype = "fullstrat",
+                                loss = "ll", verbose = FALSE)
+    best_C1 <- cv_result$best_C1
+    Mod5 <- MTLR::mtlr(formula = formula5, data = sel_clin_tr2, C1 = best_C1)
+    mean_survival_tr5   <- predict(Mod5, sel_clin_tr2, type = "mean_time")
+    median_survival_tr5 <- predict(Mod5, sel_clin_tr2, type = "median_time")
+    mean_survival_te5   <- predict(Mod5, sel_clin_te2, type = "mean_time")
+    median_survival_te5 <- predict(Mod5, sel_clin_te2, type = "median_time")
+    event_prob_te5      <- predict(Mod5, sel_clin_te2, type = "prob_event")
+    survCurves_te_df5   <- as.data.frame(predict(Mod5, sel_clin_te2, type = "survivalcurve"))
+    colnames(survCurves_te_df5) <- c("time_point", rownames(sel_clin_te2))
+    survival_results_te5 <- cbind(Mean_Survival = mean_survival_te5,
+                                  Median_Survival = median_survival_te5,
+                                  Event_Probability = event_prob_te5,
+                                  Actual_OS_Time = sel_clin_te2$OS_month,
+                                  OS_Event = sel_clin_te2$OS)
+    rownames(survival_results_te5) <- rownames(sel_clin_te2)
+    survival_summary_te5 <- as.data.frame(cbind(IDs = rownames(sel_clin_te2),
+                                                Mean = mean_survival_te5,
+                                                Median = median_survival_te5,
+                                                OS_month = sel_clin_te2$OS_month))
+    survival_summary_tr5 <- as.data.frame(cbind(IDs = rownames(sel_clin_tr2),
+                                                Mean = mean_survival_tr5,
+                                                Median = median_survival_tr5,
+                                                OS_month = sel_clin_tr2$OS_month))
+    surv_obj1_tr5 <- survival::Surv(sel_clin_tr2$OS_month, sel_clin_tr2$OS)
+    surv_obj1_te5 <- survival::Surv(sel_clin_te2$OS_month, sel_clin_te2$OS)
+    c_index1_tr5  <- round(survival::concordance(surv_obj1_tr5 ~ median_survival_tr5)$concordance, 2)
+    c_index1_te5  <- round(survival::concordance(surv_obj1_te5 ~ median_survival_te5)$concordance, 2)
+    survival_summary_tr5$OS_month <- as.numeric(survival_summary_tr5$OS_month)
+    survival_summary_tr5$Mean     <- as.numeric(survival_summary_tr5$Mean)
+    survival_summary_tr5$Median   <- as.numeric(survival_summary_tr5$Median)  # BUG FIX: was survival_summary_tr5Median
+    survival_summary_te5$OS_month <- as.numeric(survival_summary_te5$OS_month)
+    survival_summary_te5$Mean     <- as.numeric(survival_summary_te5$Mean)
+    survival_summary_te5$Median   <- as.numeric(survival_summary_te5$Median)
+    mean_mae_tr5   <- round(mean(abs(survival_summary_tr5$OS_month - survival_summary_tr5$Mean), na.rm = TRUE), 2)
+    median_mae_tr5 <- round(mean(abs(survival_summary_tr5$OS_month - survival_summary_tr5$Median), na.rm = TRUE), 2)
+    mean_mae_te5   <- round(mean(abs(survival_summary_te5$OS_month - survival_summary_te5$Mean), na.rm = TRUE), 2)
+    median_mae_te5 <- round(median(abs(survival_summary_te5$OS_month - survival_summary_te5$Median), na.rm = TRUE), 2)
+    sp_tr5  <- predict(Mod5, sel_clin_tr2, type = "prob_times")
+    ibs_tr5 <- round(SurvMetrics::IBS(surv_obj1_tr5, sp_matrix = t(as.matrix(sp_tr5)[,-1])[,-1], sp_tr5$time[-1]), 3)
+    sp_te5  <- predict(Mod5, sel_clin_te2, type = "prob_times")
+    ibs_te5 <- round(SurvMetrics::IBS(surv_obj1_te5, sp_matrix = t(as.matrix(sp_te5)[,-1])[,-1], sp_te5$time[-1]), 3)
+    Error_mat_tr5 <- cbind(c_index1_tr5, mean_mae_tr5, median_mae_tr5, round(ibs_tr5, 3))
+    Error_mat_te5 <- cbind(c_index1_te5, mean_mae_te5, median_mae_te5, round(ibs_te5, 3))
+    colnames(Error_mat_tr5) <- colnames(Error_mat_te5) <- c("C_index", "Mean_MAE", "Median_MAE", "IBS")
+    Error_mat5 <- rbind(Error_mat_tr5, Error_mat_te5)
+    rownames(Error_mat5) <- c("Training_set", "Test_set")
+    survCurves_df      <- survCurves_te_df5
+    mean_median_surv_d <- survival_summary_te5
+    surv_res           <- survival_results_te5
+    Error_mat          <- Error_mat5
+  }
+
+  return(list(
+    survCurves_data                = survCurves_df,
+    mean_median_survival_time_data = mean_median_surv_d,
+    survival_result_based_on_MTLR  = surv_res,
+    Error_mat_for_Model            = Error_mat,
+    selected_train_data            = as.data.frame(sel_clin_tr2),
+    selected_test_data             = as.data.frame(sel_clin_te2)
+  ))
+}
+
+message("✅ Corrected MTLR_pred_model_f loaded (bug on original line 581 fixed)")
+
+# ─────────────────────────────────────────────────────────────────────────────
+# STEP 1: DATA DOWNLOAD & CPSM-FORMAT PREPARATION
+# ─────────────────────────────────────────────────────────────────────────────
+
+cat("\n📥 STEP 1: Downloading TCGA-COAD data\n")
+cat("=======================================\n")
+
+query <- GDCquery(
+  project   = "TCGA-COAD",
+  data.category = "Transcriptome Profiling",
+  data.type  = "Gene Expression Quantification",
+  workflow.type = "STAR - Counts"
+)
+GDCdownload(query)
+tcga_data <- GDCprepare(query)
+
+# ── Extract raw components ──────────────────────────────────────────────────
+clinical_df  <- as.data.frame(colData(tcga_data))
+
+# Use tpm_unstrand; fall back to fpkm_unstrand if absent
+avail_assays <- assayNames(tcga_data)
+expr_assay   <- if ("tpm_unstrand" %in% avail_assays) "tpm_unstrand" else "fpkm_unstrand"
+cat(sprintf("Using assay: %s\n", expr_assay))
+expression_mat <- assay(tcga_data, expr_assay)
+
+# ── Build CPSM-format clinical block (19 + survival columns) ───────────────
+# Column layout must match CPSM Example_TCGA_LGG_FPKM_data:
+#   1  Age | 2  subtype | 3  gender | 4  race | 5  ajcc_pathologic_tumor_stage
+#   6  histological_type | 7  histological_grade | 8  treatment_outcome_first_course
+#   9  radiation_treatment_adjuvant | 10 sample_type | 11 type
+#   12 OS | 13 OS.time | 14 DSS | 15 DSS.time | 16 DFI | 17 DFI.time
+#   18 PFI | 19 PFI.time   ← col_num = 19  (gene expression starts at col 20)
+
+cat("Building CPSM-format clinical data...\n")
+
+clinical_cpsm <- data.frame(
+  Age = as.numeric(clinical_df$age_at_index),
+  subtype = rep("COAD", nrow(clinical_df)),
+  gender  = tolower(as.character(clinical_df$gender)),
+  race    = ifelse(is.na(clinical_df$race), "NOT REPORTED", as.character(clinical_df$race)),
+  ajcc_pathologic_tumor_stage = ifelse(
+    is.na(clinical_df$ajcc_pathologic_stage), "Unknown",
+    as.character(clinical_df$ajcc_pathologic_stage)),
+  histological_type  = rep("Adenocarcinoma", nrow(clinical_df)),
+  histological_grade = rep("Unknown", nrow(clinical_df)),
+  treatment_outcome_first_course = ifelse(
+    clinical_df$vital_status == "Alive",
+    "Complete Remission/Response", "Progressive Disease"),
+  radiation_treatment_adjuvant = rep("Unknown", nrow(clinical_df)),
+  sample_type = as.character(clinical_df$sample_type),
+  type = rep("COAD", nrow(clinical_df)),
+  stringsAsFactors = FALSE
+)
+
+# Survival endpoints (OS primary; DSS = OS simplified; DFI/PFI not in COAD)
+surv_days <- ifelse(
+  !is.na(clinical_df$days_to_death) & clinical_df$days_to_death > 0,
+  clinical_df$days_to_death,
+  ifelse(!is.na(clinical_df$days_to_last_follow_up) & clinical_df$days_to_last_follow_up > 0,
+         clinical_df$days_to_last_follow_up, NA))
+surv_event <- as.integer(clinical_df$vital_status == "Dead")
+
+clinical_cpsm$OS      <- surv_event
+clinical_cpsm$OS.time <- surv_days
+clinical_cpsm$DSS     <- surv_event
+clinical_cpsm$DSS.time <- surv_days
+clinical_cpsm$DFI     <- NA_integer_
+clinical_cpsm$DFI.time <- NA_real_
+clinical_cpsm$PFI     <- NA_integer_
+clinical_cpsm$PFI.time <- NA_real_
+
+rownames(clinical_cpsm) <- rownames(clinical_df)
+
+# ── Filter: complete OS, valid age, primary tumour only ────────────────────
+keep <- !is.na(clinical_cpsm$OS) &
+        !is.na(clinical_cpsm$OS.time) &
+        clinical_cpsm$OS.time > 0 &
+        !is.na(clinical_cpsm$Age) &
+        clinical_cpsm$Age > 0 &
+        grepl("Primary", clinical_cpsm$sample_type, ignore.case = TRUE)
+
+clinical_clean <- clinical_cpsm[keep, ]
+cat(sprintf("Retained %d / %d samples (complete OS + primary tumour)\n",
+            nrow(clinical_clean), nrow(clinical_cpsm)))
+cat(sprintf("Event rate: %d deaths (%.1f%%)\n",
+            sum(clinical_clean$OS), 100 * mean(clinical_clean$OS)))
+
+# ── Gene expression: quality filter + top variable genes ──────────────────
+# Align samples
+common_samples  <- intersect(rownames(clinical_clean), colnames(expression_mat))
+clinical_clean  <- clinical_clean[common_samples, ]
+expression_filt <- expression_mat[, common_samples]
+
+# Remove genes with >80% zeros / NA
+zero_prop <- rowMeans(is.na(expression_filt) | expression_filt == 0)
+expression_filt <- expression_filt[zero_prop < 0.80, ]
+
+# Select top 20,000 most variable genes (balance coverage vs performance)
+N_GENES <- 20000
+if (nrow(expression_filt) > N_GENES) {
+  gene_vars       <- apply(expression_filt, 1, var, na.rm = TRUE)
+  top_idx         <- order(gene_vars, decreasing = TRUE)[1:N_GENES]
+  expression_filt <- expression_filt[top_idx, ]
+}
+cat(sprintf("Gene expression matrix: %d genes × %d samples\n",
+            nrow(expression_filt), ncol(expression_filt)))
+
+# Replace residual zeros / NA with small positive value (log-safe)
+expression_filt[is.na(expression_filt) | expression_filt == 0] <- 1e-6
+
+# NOTE: data_process_f / train_test_normalization_f expect raw FPKM-scale input
+# (the normalization step itself applies log2 + quantile).
+# We therefore pass the FPKM values directly (no pre-log here).
+expression_t <- t(as.data.frame(expression_filt))
+
+# ── Assemble combined_df (clinical first, then genes) ─────────────────────
+clinical_clean <- clinical_clean[rownames(expression_t), ]
+combined_df    <- cbind(clinical_clean, expression_t)
+
+cat(sprintf("combined_df: %d samples × %d total columns\n",
+            nrow(combined_df), ncol(combined_df)))
+cat(sprintf("Clinical columns: 1–19  |  Gene columns: 20–%d\n", ncol(combined_df)))
+
+# Optional: save raw combined data
+write.csv(combined_df[, 1:19], "COAD_clinical_data.csv")
+cat("✅ Step 1 complete\n")
+
+# ─────────────────────────────────────────────────────────────────────────────
+# STEP 2: DATA PROCESSING (days → months, drop missing OS)
+# ─────────────────────────────────────────────────────────────────────────────
+
+cat("\n📊 STEP 2: Data processing (data_process_f)\n")
+cat("=============================================\n")
+
+# col_num = 19  → clinical/survival block ends at column 19
+#            data_process_f adds OS_month as column 20
+New_data <- data_process_f(combined_df, col_num = 19, surv_time = "OS.time")
+
+cat(sprintf("After processing: %d samples × %d columns\n",
+            nrow(New_data), ncol(New_data)))
+cat(sprintf("OS_month range: %.1f – %.1f months\n",
+            min(New_data$OS_month, na.rm = TRUE),
+            max(New_data$OS_month, na.rm = TRUE)))
+cat("✅ Step 2 complete\n")
+
+# ─────────────────────────────────────────────────────────────────────────────
+# STEP 3: TRAIN / TEST SPLIT (80 : 20)
+# ─────────────────────────────────────────────────────────────────────────────
+
+cat("\n📊 STEP 3: Train-test split (tr_test_f)\n")
+cat("=========================================\n")
+
+result_split <- tr_test_f(data = New_data, fraction = 0.8)
+train_FPKM   <- result_split$train_data
+test_FPKM    <- result_split$test_data
+
+cat(sprintf("Training: %d samples | Test: %d samples\n",
+            nrow(train_FPKM), nrow(test_FPKM)))
+cat(sprintf("Train events: %d (%.1f%%) | Test events: %d (%.1f%%)\n",
+            sum(train_FPKM$OS), 100 * mean(train_FPKM$OS),
+            sum(test_FPKM$OS),  100 * mean(test_FPKM$OS)))
+cat("✅ Step 3 complete\n")
+
+# ─────────────────────────────────────────────────────────────────────────────
+# STEP 4: NORMALIZATION (log2 + quantile)
+# ─────────────────────────────────────────────────────────────────────────────
+
+cat("\n📊 STEP 4: Normalization (train_test_normalization_f)\n")
+cat("======================================================\n")
+
+# col_num = 20 → after data_process_f, OS_month is column 20
+# Normalisation applies to columns 21+ (gene expression)
+Result_N_data <- train_test_normalization_f(
+  train_data = train_FPKM,
+  test_data  = test_FPKM,
+  col_num    = 20
+)
+
+Train_Clin      <- Result_N_data$Train_Clin
+Test_Clin       <- Result_N_data$Test_Clin
+Train_Norm_data <- Result_N_data$Train_Norm_data
+Test_Norm_data  <- Result_N_data$Test_Norm_data
+
+cat(sprintf("Train_Clin:      %d × %d\n", nrow(Train_Clin),      ncol(Train_Clin)))
+cat(sprintf("Test_Clin:       %d × %d\n", nrow(Test_Clin),       ncol(Test_Clin)))
+cat(sprintf("Train_Norm_data: %d × %d\n", nrow(Train_Norm_data), ncol(Train_Norm_data)))
+cat(sprintf("Test_Norm_data:  %d × %d\n", nrow(Test_Norm_data),  ncol(Test_Norm_data)))
+cat("✅ Step 4 complete\n")
+
+# ─────────────────────────────────────────────────────────────────────────────
+# STEP 5a: LASSO PROGNOSTIC INDEX (PI) SCORE
+# ─────────────────────────────────────────────────────────────────────────────
+
+cat("\n📊 STEP 5a: LASSO PI score (Lasso_PI_scores_f)\n")
+cat("================================================\n")
+
+# Require complete cases for LASSO
+train_lasso <- Train_Norm_data[complete.cases(Train_Norm_data), ]
+test_lasso  <- Test_Norm_data
+
+Result_PI <- tryCatch({
+  Lasso_PI_scores_f(
+    train_data = train_lasso,
+    test_data  = test_lasso,
+    nfolds     = 5,
+    col_num    = 21,        # gene expression starts at column 21 after normalisation
+    surv_time  = "OS_month",
+    surv_event = "OS"
+  )
+}, error = function(e) {
+  cat("⚠️  LASSO failed:", e$message, "\n")
+  NULL
+})
+
+if (!is.null(Result_PI)) {
+  Train_Lasso_key_variables <- Result_PI$Train_Lasso_key_variables
+  Train_PI_data <- Result_PI$Train_PI_data
+  Test_PI_data  <- Result_PI$Test_PI_data
+
+  cat(sprintf("LASSO selected %d features\n",
+              nrow(Train_Lasso_key_variables)))
+
+  # Export LASSO genes
+  write.csv(Train_Lasso_key_variables,
+            "COAD_LASSO_selected_genes.csv", row.names = FALSE)
+  cat("💾 LASSO genes saved: COAD_LASSO_selected_genes.csv\n")
+
+  # LASSO lambda plot
+  png("COAD_LASSO_lambda_plot.png", width = 800, height = 500)
+  plot(Result_PI$cvfit, main = "COAD LASSO CV – Lambda Selection")
+  dev.off()
+  cat("📈 LASSO lambda plot saved: COAD_LASSO_lambda_plot.png\n")
+} else {
+  cat("⚠️  LASSO step skipped – PI-based models (2, 3) will not run\n")
+  Train_PI_data <- NULL
+  Test_PI_data  <- NULL
+  Train_Lasso_key_variables <- NULL
+}
+
+cat("✅ Step 5a complete\n")
+
+# ─────────────────────────────────────────────────────────────────────────────
+# STEP 5b: UNIVARIATE SURVIVAL FEATURE SELECTION
+# ─────────────────────────────────────────────────────────────────────────────
+
+cat("\n📊 STEP 5b: Univariate Cox feature selection (Univariate_sig_features_f)\n")
+cat("==========================================================================\n")
+
+Result_Uni <- Univariate_sig_features_f(
+  train_data = Train_Norm_data,
+  test_data  = Test_Norm_data,
+  col_num    = 21,
+  surv_time  = "OS_month",
+  surv_event = "OS"
+)
+
+# ── Extract all output objects (use exact canonical field names) ────────────
+Univariate_Suv_Sig_G_L <- Result_Uni$Univariate_Survival_Significant_genes_List
+Train_Uni_sig_data      <- Result_Uni$Train_Uni_sig_data
+Test_Uni_sig_data       <- Result_Uni$Test_Uni_sig_data
+Uni_Sur_Sig_clin_List   <- Result_Uni$Univariate_Survival_Significant_clin_List
+ZPH_test                <- Result_Uni$ZPH_Genes
+PH_Summary              <- Result_Uni$PH_Summary_Genes
+
+cat(sprintf("Significant genes identified: %d\n",
+            nrow(Univariate_Suv_Sig_G_L)))
+cat("Top 10 survival genes:\n")
+print(head(Univariate_Suv_Sig_G_L, 10))
+
+# -- Coerce matrix -> data frame (CPSM returns a character matrix, not a data frame)
+# $ column assignment and ncol() both fail on a matrix; convert first.
+Univariate_Suv_Sig_G_L <- as.data.frame(Univariate_Suv_Sig_G_L,
+                                         stringsAsFactors = FALSE)
+
+# Promote "ID" column to rownames if it holds ENSEMBL IDs
+if ("ID" %in% colnames(Univariate_Suv_Sig_G_L) &&
+    !identical(rownames(Univariate_Suv_Sig_G_L),
+               as.character(Univariate_Suv_Sig_G_L$ID))) {
+  rownames(Univariate_Suv_Sig_G_L) <- Univariate_Suv_Sig_G_L$ID
+}
+
+# Type-coerce numeric columns (arrived as character strings from the matrix)
+for (.col in c("Beta", "HR", "P-value", "Concordance", "Std_Error")) {
+  if (.col %in% colnames(Univariate_Suv_Sig_G_L))
+    Univariate_Suv_Sig_G_L[[.col]] <- as.numeric(Univariate_Suv_Sig_G_L[[.col]])
+}
+# Rename "P-value" to safe R identifier for downstream $ access
+if ("P-value" %in% colnames(Univariate_Suv_Sig_G_L))
+  colnames(Univariate_Suv_Sig_G_L)[colnames(Univariate_Suv_Sig_G_L) == "P-value"] <- "pvalue"
+
+# -- Annotate ENSEMBL IDs -> gene symbols -----------------------------------
+annotate_genes <- function(gene_df) {
+  ids       <- rownames(gene_df)
+  ids_clean <- gsub("\\..*", "", ids)   # strip ENSEMBL version suffix
+
+  symbols <- tryCatch(
+    suppressMessages(
+      mapIds(org.Hs.eg.db, keys = ids_clean, column = "SYMBOL",
+             keytype = "ENSEMBL", multiVals = "first")
+    ),
+    error = function(e) setNames(rep(NA_character_, length(ids_clean)), ids_clean)
+  )
+  gene_names <- tryCatch(
+    suppressMessages(
+      mapIds(org.Hs.eg.db, keys = ids_clean, column = "GENENAME",
+             keytype = "ENSEMBL", multiVals = "first")
+    ),
+    error = function(e) setNames(rep(NA_character_, length(ids_clean)), ids_clean)
+  )
+
+  # Safe column assignment -- gene_df is now guaranteed to be a data frame
+  gene_df$ENSEMBL_clean <- ids_clean
+  gene_df$Gene_Symbol   <- as.character(symbols[ids_clean])
+  gene_df$Gene_Name     <- as.character(gene_names[ids_clean])
+  gene_df
+}
+
+Univariate_Suv_Sig_G_L <- annotate_genes(Univariate_Suv_Sig_G_L)
+
+cat(sprintf("Gene symbol mapping: %d / %d annotated\n",
+            sum(!is.na(Univariate_Suv_Sig_G_L$Gene_Symbol)),
+            nrow(Univariate_Suv_Sig_G_L)))
+
+# -- Export: all survival-significant genes with full metrics ---------------
+write.csv(Univariate_Suv_Sig_G_L,
+          "COAD_Univariate_Survival_Genes_Full.csv",
+          row.names = TRUE)
+cat("Survival gene table saved: COAD_Univariate_Survival_Genes_Full.csv\n")
+
+# Excel export with conditional formatting
+wb <- createWorkbook()
+addWorksheet(wb, "Survival_Genes")
+writeData(wb, "Survival_Genes", Univariate_Suv_Sig_G_L, rowNames = TRUE)
+
+# Highlight rows where pvalue < 0.001 (column is now numeric, guard against empty)
+highlight_rows <- which(Univariate_Suv_Sig_G_L$pvalue < 0.001) + 1L
+if (length(highlight_rows) > 0) {
+  addStyle(wb, "Survival_Genes",
+           style      = createStyle(bgFill = "#FFF2CC"),
+           rows       = highlight_rows,
+           cols       = 1:ncol(Univariate_Suv_Sig_G_L),
+           gridExpand = TRUE)
+}
+saveWorkbook(wb, "COAD_Univariate_Survival_Genes_Full.xlsx", overwrite = TRUE)
+cat("Excel export: COAD_Univariate_Survival_Genes_Full.xlsx\n")
+
+
+cat("✅ Step 5b complete\n")
+
+# ─────────────────────────────────────────────────────────────────────────────
+# STEP 6: MTLR PREDICTION MODELS
+# =============================================================================
+# Model 1 – Clinical only              (Model_type = 1)
+# Model 2 – PI score only              (Model_type = 2)  [if LASSO succeeded]
+# Model 3 – PI + Clinical              (Model_type = 3)  [if LASSO succeeded]
+# Model 4 – Univariate genes only      (Model_type = 4)
+# Model 5 – Univariate genes + Clinical(Model_type = 5)  ← preferred gene model
+# ─────────────────────────────────────────────────────────────────────────────
+
+cat("\n📊 STEP 6: MTLR Prediction Models\n")
+cat("===================================\n")
+
+# ── Resumability: checkpoint / restore key objects ───────────────────────────
+# If the script is re-run after a partial failure, objects saved by previous
+# runs are restored from disk so Steps 1-5 are not repeated.
+CHECKPOINT_DIR <- "COAD_checkpoints"
+dir.create(CHECKPOINT_DIR, showWarnings = FALSE)
+
+checkpoint_save <- function(obj, name) {
+  saveRDS(obj, file.path(CHECKPOINT_DIR, paste0(name, ".rds")))
+  cat(sprintf("  [checkpoint] saved: %s\n", name))
+}
+checkpoint_load <- function(name) {
+  path <- file.path(CHECKPOINT_DIR, paste0(name, ".rds"))
+  if (file.exists(path)) {
+    cat(sprintf("  [checkpoint] restored: %s\n", name))
+    return(readRDS(path))
+  }
+  NULL
+}
+
+# Save upstream objects that Step 6 depends on (only if not yet saved)
+for (.obj in c("Train_Clin", "Test_Clin", "Train_Uni_sig_data", "Test_Uni_sig_data",
+               "Train_PI_data", "Test_PI_data", "Univariate_Suv_Sig_G_L",
+               "top_genes_4", "Key_Uni_list")) {
+  .path <- file.path(CHECKPOINT_DIR, paste0(.obj, ".rds"))
+  if (!file.exists(.path) && exists(.obj))
+    checkpoint_save(get(.obj), .obj)
+}
+
+# Restore if running from a resume point (objects won't exist if sourced fresh)
+for (.obj in c("Train_Clin", "Test_Clin", "Train_Uni_sig_data", "Test_Uni_sig_data",
+               "Train_PI_data", "Test_PI_data", "Univariate_Suv_Sig_G_L",
+               "top_genes_4", "Key_Uni_list")) {
+  if (!exists(.obj)) {
+    .val <- checkpoint_load(.obj)
+    if (!is.null(.val)) assign(.obj, .val)
+  }
+}
+
+# ── Factor harmonization: align test factor levels to training ───────────────
+# MTLR uses model.matrix internally; if test set has factor levels unseen in
+# training (e.g. "Stage IVB" only in test), model.matrix errors. Solution:
+# restrict test factor levels to the training set's levels.
+harmonize_factor_levels <- function(train_df, test_df, feature_ids) {
+  for (col in feature_ids) {
+    if (col %in% colnames(train_df) && col %in% colnames(test_df)) {
+      tr_vals <- train_df[[col]]
+      te_vals <- test_df[[col]]
+      # Only harmonize if the column looks categorical
+      if (is.character(tr_vals) || is.factor(tr_vals)) {
+        tr_levels  <- unique(na.omit(as.character(tr_vals)))
+        # Recode unseen test levels to NA, then set matching factor levels
+        te_recoded <- as.character(te_vals)
+        te_recoded[!te_recoded %in% tr_levels] <- NA
+        train_df[[col]] <- factor(as.character(tr_vals), levels = tr_levels)
+        test_df[[col]]  <- factor(te_recoded,            levels = tr_levels)
+      }
+    }
+  }
+  list(train = train_df, test = test_df)
+}
+
+model_results <- list()
+
+# ── Shared clinical feature list for COAD ─────────────────────────────────────
+# "ajcc_pathologic_tumor_stage" has new levels in test → harmonized per model below
+Key_Clin_feature_list <- data.frame(
+  ID = c("Age", "gender", "ajcc_pathologic_tumor_stage"),
+  stringsAsFactors = FALSE
+)
+
+# ── Model 1: Clinical only ────────────────────────────────────────────────────
+cat("\n🔹 Model 1: Clinical features only\n")
+model_results$Model1 <- tryCatch({
+  harm1   <- harmonize_factor_levels(Train_Clin, Test_Clin, Key_Clin_feature_list$ID)
+  res <- MTLR_pred_model_f(
+    train_clin_data     = harm1$train,
+    test_clin_data      = harm1$test,
+    Model_type          = 1,
+    train_features_data = harm1$train,
+    test_features_data  = harm1$test,
+    Clin_Feature_List   = Key_Clin_feature_list,
+    surv_time           = "OS_month",
+    surv_event          = "OS",
+    nfolds              = 5
+  )
+  cat("  Model 1 performance:\n")
+  print(res$Error_mat_for_Model)
+  checkpoint_save(res, "Model1_result")
+  res
+}, error = function(e) {
+  cat("  ⚠️  Model 1 failed:", e$message, "\n")
+  checkpoint_load("Model1_result")
+})
+
+# ── Model 2: PI score only ───────────────────────────────────────────────────
+if (!is.null(Train_PI_data)) {
+  cat("\n🔹 Model 2: PI score only\n")
+  Key_PI_list <- data.frame(ID = "PI", stringsAsFactors = FALSE)
+  model_results$Model2 <- tryCatch({
+    res <- MTLR_pred_model_f(
+      train_clin_data    = Train_Clin,
+      test_clin_data     = Test_Clin,
+      Model_type         = 2,
+      train_features_data = Train_PI_data,
+      test_features_data  = Test_PI_data,
+      Clin_Feature_List  = Key_PI_list,
+      surv_time          = "OS_month",
+      surv_event         = "OS",
+      nfolds             = 5
+    )
+    cat("  Model 2 performance:\n")
+    print(res$Error_mat_for_Model)
+    res
+  }, error = function(e) {
+    cat("  ⚠️  Model 2 failed:", e$message, "\n")
+    NULL
+  })
+
+  # ── Model 3: PI + Clinical ─────────────────────────────────────────────────
+  cat("\n🔹 Model 3: PI score + Clinical features\n")
+  Key_Clin_PI_list <- data.frame(
+    ID = c("Age", "gender", "ajcc_pathologic_tumor_stage", "PI"),
+    stringsAsFactors = FALSE
+  )
+  model_results$Model3 <- tryCatch({
+    res <- MTLR_pred_model_f(
+      train_clin_data    = Train_Clin,
+      test_clin_data     = Test_Clin,
+      Model_type         = 3,
+      train_features_data = Train_PI_data,
+      test_features_data  = Test_PI_data,
+      Clin_Feature_List  = Key_Clin_PI_list,
+      surv_time          = "OS_month",
+      surv_event         = "OS",
+      nfolds             = 5
+    )
+    cat("  Model 3 performance:\n")
+    print(res$Error_mat_for_Model)
+    res
+  }, error = function(e) {
+    cat("  ⚠️  Model 3 failed:", e$message, "\n")
+    NULL
+  })
+}
+
+# ── Model 4: Univariate genes only ──────────────────────────────────────────
+cat("\n🔹 Model 4: Univariate-significant genes only\n")
+
+# Use top genes by Concordance (the correct column name from Univariate_sig_features_f)
+# Prefer up to 20 top genes to avoid overfitting with MTLR
+n_top <- min(20, nrow(Univariate_Suv_Sig_G_L))
+if ("Concordance" %in% colnames(Univariate_Suv_Sig_G_L)) {
+  top_gene_df <- Univariate_Suv_Sig_G_L[
+    order(as.numeric(Univariate_Suv_Sig_G_L$Concordance), decreasing = TRUE), ]
+} else {
+  top_gene_df <- Univariate_Suv_Sig_G_L[
+    order(as.numeric(Univariate_Suv_Sig_G_L$pvalue)), ]
+}
+top_genes_4 <- rownames(top_gene_df)[1:n_top]
+Key_Uni_list <- data.frame(ID = top_genes_4, stringsAsFactors = FALSE)
+
+model_results$Model4 <- tryCatch({
+  res <- MTLR_pred_model_f(
+    train_clin_data    = Train_Clin,
+    test_clin_data     = Test_Clin,
+    Model_type         = 4,
+    train_features_data = Train_Uni_sig_data,
+    test_features_data  = Test_Uni_sig_data,
+    Clin_Feature_List  = Key_Uni_list,
+    surv_time          = "OS_month",
+    surv_event         = "OS",
+    nfolds             = 5
+  )
+  cat("  Model 4 performance:\n")
+  print(res$Error_mat_for_Model)
+  checkpoint_save(res, "Model4_result")
+  res
+}, error = function(e) {
+  cat("  ⚠️  Model 4 failed:", e$message, "\n")
+  checkpoint_load("Model4_result")
+})
+
+# ── Model 5: Univariate genes + Clinical ──────────────────────────────────────
+# Uses Model_type = 4 in our embedded MTLR_pred_model_f (genes+clinical path).
+# The feature list combines clinical IDs + top univariate gene IDs; the function
+# selects whichever of those columns are present in the combined train/test data.
+cat("\n🔹 Model 5: Univariate genes + Clinical features\n")
+Key_Uni_Clin_list <- data.frame(
+  ID = c("Age", "gender", "ajcc_pathologic_tumor_stage", top_genes_4),
+  stringsAsFactors = FALSE
+)
+
+model_results$Model5 <- tryCatch({
+  harm5   <- harmonize_factor_levels(Train_Clin, Test_Clin,
+               c("Age", "gender", "ajcc_pathologic_tumor_stage"))
+  # Merge harmonized clinical columns into the gene feature frames
+  clin_cols   <- c("OS", "OS_month", "Age", "gender", "ajcc_pathologic_tumor_stage")
+  tr5_merged  <- cbind(
+    harm5$train[, intersect(clin_cols, colnames(harm5$train)), drop = FALSE],
+    Train_Uni_sig_data[rownames(harm5$train),
+                       setdiff(colnames(Train_Uni_sig_data), clin_cols), drop = FALSE]
+  )
+  te5_merged  <- cbind(
+    harm5$test[, intersect(clin_cols, colnames(harm5$test)), drop = FALSE],
+    Test_Uni_sig_data[rownames(harm5$test),
+                      setdiff(colnames(Test_Uni_sig_data), clin_cols), drop = FALSE]
+  )
+  res <- MTLR_pred_model_f(
+    train_clin_data     = harm5$train,
+    test_clin_data      = harm5$test,
+    Model_type          = 4,
+    train_features_data = tr5_merged,
+    test_features_data  = te5_merged,
+    Clin_Feature_List   = Key_Uni_Clin_list,
+    surv_time           = "OS_month",
+    surv_event          = "OS",
+    nfolds              = 5
+  )
+  cat("  Model 5 performance:\n")
+  print(res$Error_mat_for_Model)
+  checkpoint_save(res, "Model5_result")
+  res
+}, error = function(e) {
+  cat("  ⚠️  Model 5 failed:", e$message, "\n")
+  checkpoint_load("Model5_result")
+})
+
+# ── Model performance summary ────────────────────────────────────────────────
+cat("\n📊 MODEL COMPARISON SUMMARY\n")
+cat("============================\n")
+
+perf_rows <- list()
+for (mn in names(model_results)) {
+  mod <- model_results[[mn]]
+  if (!is.null(mod) && !is.null(mod$Error_mat_for_Model)) {
+    em <- mod$Error_mat_for_Model
+    # Error_mat_for_Model is a numeric matrix — use [row, col] not $ accessor
+    perf_rows[[mn]] <- data.frame(
+      Model         = mn,
+      Train_C_index = round(em["Training_set", "C_index"], 4),
+      Test_C_index  = round(em["Test_set",     "C_index"], 4),
+      Train_MAE     = round(em["Training_set", "Mean_MAE"], 2),
+      Test_MAE      = round(em["Test_set",     "Mean_MAE"], 2),
+      Train_IBS     = round(em["Training_set", "IBS"], 3),
+      Test_IBS      = round(em["Test_set",     "IBS"], 3),
+      stringsAsFactors = FALSE
+    )
+  }
+}
+model_perf_df <- do.call(rbind, perf_rows)
+print(model_perf_df)
+
+write.csv(model_perf_df, "COAD_Model_Performance.csv", row.names = FALSE)
+cat("💾 Model performance saved: COAD_Model_Performance.csv\n")
+
+# Identify best model by test C-index
+best_model_name <- model_perf_df$Model[which.max(model_perf_df$Test_C_index)]
+best_model      <- model_results[[best_model_name]]
+cat(sprintf("\n🏆 Best model: %s  (Test C-index = %.4f)\n",
+            best_model_name,
+            model_perf_df$Test_C_index[model_perf_df$Model == best_model_name]))
+cat("✅ Step 6 complete\n")
+
+# ─────────────────────────────────────────────────────────────────────────────
+# STEP 7: SURVIVAL CURVE PLOTS (surv_curve_plots_f)
+# ─────────────────────────────────────────────────────────────────────────────
+
+cat("\n📊 STEP 7: Survival curve plots\n")
+cat("=================================\n")
+
+survCurves_data <- best_model$survCurves_data
+
+if (!is.null(survCurves_data) && nrow(survCurves_data) > 0) {
+  # Patient IDs are column names of survCurves_data (col 1 = "time_point", skip it)
+  patient_cols <- colnames(survCurves_data)
+  patient_cols <- patient_cols[patient_cols != "time_point"]
+  sample_id    <- patient_cols[1]
+  cat(sprintf("  Highlighting sample: %s\n", sample_id))
+
+  surv_plots <- surv_curve_plots_f(
+    Surv_curve_data = survCurves_data,
+    selected_sample = sample_id,
+    font_size       = 11,
+    line_size       = 0.4,
+    all_line_col    = "grey70",
+    highlight_col   = "firebrick"
+  )
+
+  png("COAD_Survival_Curves_All.png", width = 1000, height = 600, res = 120)
+  print(surv_plots$all_patients_plot +
+          labs(title = "TCGA-COAD: Predicted Survival Curves (All Test Patients)",
+               subtitle = sprintf("Model: %s | n = %d", best_model_name,
+                                  nrow(survCurves_data))))
+  dev.off()
+
+  png("COAD_Survival_Curves_Highlighted.png", width = 1000, height = 600, res = 120)
+  print(surv_plots$highlighted_patient_plot +
+          labs(title = "TCGA-COAD: Survival Curve – Highlighted Patient",
+               subtitle = paste("Sample:", sample_id)))
+  dev.off()
+  cat("📈 Survival curve plots saved\n")
+}
+cat("✅ Step 7 complete\n")
+
+# ─────────────────────────────────────────────────────────────────────────────
+# STEP 8: MEAN / MEDIAN SURVIVAL BAR PLOTS (mean_median_surv_barplot_f)
+# ─────────────────────────────────────────────────────────────────────────────
+
+cat("\n📊 STEP 8: Mean/Median survival bar plots\n")
+cat("==========================================\n")
+
+mean_median_data <- best_model$mean_median_survival_time_data
+
+# Defensive: rename "ID" -> "IDs" if checkpoint was saved before this fix
+if (!is.null(mean_median_data) && "ID" %in% colnames(mean_median_data) &&
+    !"IDs" %in% colnames(mean_median_data)) {
+  colnames(mean_median_data)[colnames(mean_median_data) == "ID"] <- "IDs"
+}
+
+if (!is.null(mean_median_data)) {
+  bar_colors <- c(
+    "TRUE.Mean"    = "#E63946",
+    "TRUE.Median"  = "#457B9D",
+    "FALSE.Mean"   = "#F4A261",
+    "FALSE.Median" = "#A8DADC"
+  )
+
+  bar_plots <- mean_median_surv_barplot_f(
+    surv_mean_med_data = mean_median_data,
+    selected_sample    = sample_id,
+    font_size          = 9,
+    font_color         = "black",
+    bar_colors         = bar_colors
+  )
+
+  png("COAD_MeanMedian_Survival_All.png", width = 1000, height = 500, res = 120)
+  print(bar_plots$mean_med_all_pat +
+          labs(title = "TCGA-COAD: Predicted Mean & Median Survival Times"))
+  dev.off()
+
+  png("COAD_MeanMedian_Survival_Highlighted.png", width = 1000, height = 500, res = 120)
+  print(bar_plots$highlighted_selected_pat +
+          labs(title = "TCGA-COAD: Predicted Survival – Highlighted Patient"))
+  dev.off()
+  cat("📈 Bar plots saved\n")
+}
+cat("✅ Step 8 complete\n")
+
+# ─────────────────────────────────────────────────────────────────────────────
+# STEP 9: RISK-GROUP PREDICTION (predict_survival_risk_group_f)
+# ─────────────────────────────────────────────────────────────────────────────
+
+cat("\n📊 STEP 9: Risk-group prediction (RSF)\n")
+cat("========================================\n")
+
+# Use the feature set matching the best model
+best_feature_list <- switch(best_model_name,
+  "Model1" = Key_Clin_feature_list,
+  "Model2" = Key_PI_list,
+  "Model3" = Key_Clin_PI_list,
+  "Model4" = Key_Uni_list,
+  "Model5" = Key_Uni_Clin_list,
+  Key_Uni_list
+)
+
+best_train_feat <- switch(best_model_name,
+  "Model1" = Train_Clin,
+  "Model2" = Train_PI_data,
+  "Model3" = Train_PI_data,
+  "Model4" = Train_Uni_sig_data,
+  "Model5" = Train_Uni_sig_data,
+  Train_Uni_sig_data
+)
+best_test_feat <- switch(best_model_name,
+  "Model1" = Test_Clin,
+  "Model2" = Test_PI_data,
+  "Model3" = Test_PI_data,
+  "Model4" = Test_Uni_sig_data,
+  "Model5" = Test_Uni_sig_data,
+  Test_Uni_sig_data
+)
+
+Results_Risk <- tryCatch({
+  predict_survival_risk_group_f(
+    selected_train_data = best_train_feat,
+    selected_test_data  = best_test_feat,
+    Feature_List        = best_feature_list
+  )
+}, error = function(e) {
+  cat("⚠️  Risk-group prediction failed:", e$message, "\n")
+  NULL
+})
+
+if (!is.null(Results_Risk)) {
+  Train_results <- Results_Risk$Train_results
+  Test_results  <- Results_Risk$Test_results
+  cat("Risk-group misclassification results:\n")
+  print(Results_Risk$misclassification_results)
+  cat("Test set risk predictions:\n")
+  print(head(Test_results))
+}
+cat("✅ Step 9 complete\n")
+
+# ─────────────────────────────────────────────────────────────────────────────
+# STEP 10: KM OVERLAY PLOT (km_overlay_plot_f)
+# ─────────────────────────────────────────────────────────────────────────────
+
+cat("\n📊 STEP 10: KM overlay plot\n")
+cat("============================\n")
+
+if (!is.null(Results_Risk)) {
+  KM_plot <- tryCatch({
+    km_overlay_plot_f(
+      Train_results    = Train_results,
+      Test_results     = Test_results,
+      survcurve_te_data = survCurves_data,
+      selected_sample  = sample_id,
+      font_size        = 12,
+      train_palette    = c("firebrick", "steelblue"),
+      test_curve_col   = "darkgreen",
+      test_curve_size  = 1.2,
+      test_curve_lty   = "dashed",
+      annotation_col   = "black"
+    )
+  }, error = function(e) {
+    cat("⚠️  KM overlay failed:", e$message, "\n")
+    NULL
+  })
+
+  if (!is.null(KM_plot)) {
+    png("COAD_KM_Overlay_Plot.png", width = 1000, height = 700, res = 120)
+    print(KM_plot)
+    dev.off()
+    cat("📈 KM overlay plot saved: COAD_KM_Overlay_Plot.png\n")
+  }
+}
+cat("✅ Step 10 complete\n")
+
+# ─────────────────────────────────────────────────────────────────────────────
+# STEP 11: NOMOGRAM (Nomogram_generate_f)
+# ─────────────────────────────────────────────────────────────────────────────
+
+cat("\n📊 STEP 11: Nomogram\n")
+cat("=====================\n")
+
+# Nomogram uses training data with selected features
+# Build nomogram feature list (clinical + top univariate genes)
+n_nomo <- min(5, length(top_genes_4))
+nomo_feature_list <- data.frame(
+  ID = c("Age", "gender", "ajcc_pathologic_tumor_stage",
+         top_genes_4[1:n_nomo]),
+  stringsAsFactors = FALSE
+)
+
+# Combine Train_Clin + Train_Uni_sig_data for the nomogram input
+nomo_cols <- intersect(nomo_feature_list$ID,
+                       colnames(Train_Uni_sig_data))
+nomo_train <- cbind(Train_Clin,
+                    Train_Uni_sig_data[, setdiff(nomo_cols, colnames(Train_Clin)),
+                                       drop = FALSE])
+
+nomo_result <- tryCatch({
+  Nomogram_generate_f(
+    data         = nomo_train,
+    Feature_List = nomo_feature_list,
+    surv_time    = "OS_month",
+    surv_event   = "OS",
+    font_size    = 0.75,
+    axis_cex     = 0.55,
+    tcl_len      = 0.5,
+    label_margin = 0.5,
+    col_grid     = gray(c(0.85, 0.95))
+  )
+}, error = function(e) {
+  cat("⚠️  Nomogram failed:", e$message, "\n")
+  NULL
+})
+
+if (!is.null(nomo_result)) {
+  cat("Nomogram C-index:\n")
+  print(nomo_result$C_index_mat)
+  # Nomogram is rendered to an active device by the function;
+  # wrap it to save to PNG
+  png("COAD_Nomogram.png", width = 1100, height = 700, res = 120)
+  Nomogram_generate_f(
+    data         = nomo_train,
+    Feature_List = nomo_feature_list,
+    surv_time    = "OS_month",
+    surv_event   = "OS",
+    font_size    = 0.75,
+    axis_cex     = 0.55,
+    tcl_len      = 0.5,
+    label_margin = 0.5,
+    col_grid     = gray(c(0.85, 0.95))
+  )
+  dev.off()
+  cat("📈 Nomogram saved: COAD_Nomogram.png\n")
+}
+cat("✅ Step 11 complete\n")
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SUPPLEMENTARY PLOTS
+# ─────────────────────────────────────────────────────────────────────────────
+
+cat("\n🎨 Generating supplementary plots...\n")
+
+# ── Plot A: Volcano plot of univariate genes ─────────────────────────────────
+plot_volcano <- function(uni_df, title = "TCGA-COAD: Univariate Survival Genes") {
+  # Ensure expected columns exist
+  if (!all(c("pvalue", "HR") %in% colnames(uni_df))) {
+    cat("⚠️  Volcano: missing 'pvalue' or 'HR' columns – skipping\n")
+    return(NULL)
+  }
+
+  df <- uni_df
+  df$Gene    <- if ("Gene_Symbol" %in% colnames(df)) df$Gene_Symbol else rownames(df)
+  df$Gene[is.na(df$Gene)] <- rownames(df)[is.na(df$Gene)]
+  df$log2HR  <- log2(df$HR)
+  df$negLogP <- -log10(df$pvalue)
+  df$Direction <- ifelse(df$HR > 1, "High-risk (HR > 1)", "Protective (HR < 1)")
+  df$label_gene <- ifelse(df$negLogP > quantile(df$negLogP, 0.90, na.rm = TRUE),
+                          df$Gene, "")
+
+  ggplot(df, aes(x = log2HR, y = negLogP, colour = Direction, label = label_gene)) +
+    geom_point(alpha = 0.7, size = 1.8) +
+    geom_text_repel(size = 3, max.overlaps = 15, segment.size = 0.3) +
+    geom_hline(yintercept = -log10(0.05), linetype = "dashed", colour = "grey40") +
+    geom_vline(xintercept = 0, linetype = "dotted", colour = "grey40") +
+    scale_colour_manual(values = c("High-risk (HR > 1)"  = "#E63946",
+                                   "Protective (HR < 1)" = "#457B9D")) +
+    labs(title = title,
+         x = "log₂(Hazard Ratio)",
+         y = "-log₁₀(p-value)",
+         colour = "Direction",
+         caption = sprintf("n = %d significant genes | dashed line: p = 0.05",
+                           nrow(df))) +
+    theme_bw(base_size = 12) +
+    theme(legend.position = "bottom",
+          plot.title = element_text(face = "bold"))
+}
+
+vol_plot <- plot_volcano(Univariate_Suv_Sig_G_L)
+if (!is.null(vol_plot)) {
+  ggsave("COAD_Volcano_Plot.png", vol_plot,
+         width = 10, height = 7, dpi = 150)
+  cat("📈 Volcano plot saved: COAD_Volcano_Plot.png\n")
+}
+
+# ── Plot B: Top-20 HR bar plot ───────────────────────────────────────────────
+if ("HR" %in% colnames(Univariate_Suv_Sig_G_L) &&
+    "Gene_Symbol" %in% colnames(Univariate_Suv_Sig_G_L)) {
+
+  df_top <- Univariate_Suv_Sig_G_L %>%
+    filter(!is.na(Gene_Symbol)) %>%
+    mutate(Gene = Gene_Symbol,
+           log2HR = log2(HR),
+           Direction = ifelse(HR > 1, "High-risk", "Protective")) %>%
+    arrange(desc(abs(log2HR))) %>%
+    head(20)
+
+  hr_bar <- ggplot(df_top, aes(x = reorder(Gene, log2HR),
+                                y = log2HR, fill = Direction)) +
+    geom_col(width = 0.7) +
+    geom_hline(yintercept = 0, colour = "black", linewidth = 0.4) +
+    coord_flip() +
+    scale_fill_manual(values = c("High-risk"  = "#E63946",
+                                  "Protective" = "#457B9D")) +
+    labs(title = "TCGA-COAD: Top 20 Survival Genes by Hazard Ratio",
+         x = NULL, y = "log₂(Hazard Ratio)",
+         fill = "Effect") +
+    theme_bw(base_size = 12) +
+    theme(legend.position = "right",
+          plot.title = element_text(face = "bold"))
+
+  ggsave("COAD_Top20_HR_Barplot.png", hr_bar,
+         width = 9, height = 6, dpi = 150)
+  cat("📈 HR bar plot saved: COAD_Top20_HR_Barplot.png\n")
+}
+
+# ── Plot C: C-index comparison across models ─────────────────────────────────
+if (nrow(model_perf_df) > 0) {
+  perf_long <- model_perf_df %>%
+    tidyr::pivot_longer(cols = c(Train_C_index, Test_C_index),
+                        names_to = "Set", values_to = "C_index") %>%
+    mutate(Set = gsub("_C_index", "", Set))
+
+  perf_plot <- ggplot(perf_long,
+                      aes(x = Model, y = C_index, fill = Set)) +
+    geom_col(position = "dodge", width = 0.6) +
+    geom_hline(yintercept = 0.5, linetype = "dashed", colour = "grey50") +
+    scale_fill_manual(values = c("Train" = "#2A9D8F", "Test" = "#E76F51")) +
+    ylim(0, 1) +
+    labs(title = "TCGA-COAD: MTLR Model Performance (C-index)",
+         x = "Model", y = "C-index", fill = "Dataset") +
+    theme_bw(base_size = 12) +
+    theme(plot.title = element_text(face = "bold"))
+
+  ggsave("COAD_Model_CIndex_Comparison.png", perf_plot,
+         width = 8, height = 5, dpi = 150)
+  cat("📈 C-index comparison plot saved: COAD_Model_CIndex_Comparison.png\n")
+}
+
+# ── Plot D: Kaplan-Meier on full dataset (reference) ─────────────────────────
+km_ref <- tryCatch({
+  km_fit <- survfit(Surv(OS_month, OS) ~ 1, data = New_data)
+  km_plot_ref <- ggsurvplot(km_fit,
+    data        = New_data,
+    risk.table  = TRUE,
+    conf.int    = TRUE,
+    palette     = "#2A9D8F",
+    title       = "TCGA-COAD: Overall Survival (Full Cohort, KM Estimate)",
+    xlab        = "Time (months)",
+    ylab        = "Survival Probability",
+    ggtheme     = theme_bw(base_size = 12),
+    risk.table.height = 0.25
+  )
+  png("COAD_KM_Full_Cohort.png", width = 900, height = 650, res = 120)
+  print(km_plot_ref)
+  dev.off()
+  cat("📈 Full-cohort KM plot saved: COAD_KM_Full_Cohort.png\n")
+}, error = function(e) cat("⚠️  KM reference plot failed:", e$message, "\n"))
+
+# ─────────────────────────────────────────────────────────────────────────────
+# FINAL EXPORT: COMPREHENSIVE EXCEL WORKBOOK
+# ─────────────────────────────────────────────────────────────────────────────
+
+cat("\n💾 Writing comprehensive Excel workbook...\n")
+
+wb_final <- createWorkbook()
+
+# Sheet 1: Survival genes
+addWorksheet(wb_final, "Survival_Genes")
+writeData(wb_final, "Survival_Genes", Univariate_Suv_Sig_G_L, rowNames = TRUE)
+
+# Sheet 2: LASSO genes (if available)
+if (!is.null(Train_Lasso_key_variables)) {
+  addWorksheet(wb_final, "LASSO_Genes")
+  writeData(wb_final, "LASSO_Genes", Train_Lasso_key_variables, rowNames = FALSE)
+}
+
+# Sheet 3: Model performance
+addWorksheet(wb_final, "Model_Performance")
+writeData(wb_final, "Model_Performance", model_perf_df, rowNames = FALSE)
+
+# Sheet 4: Significant clinical features
+if (!is.null(Uni_Sur_Sig_clin_List) && nrow(Uni_Sur_Sig_clin_List) > 0) {
+  addWorksheet(wb_final, "Significant_Clinical")
+  writeData(wb_final, "Significant_Clinical", Uni_Sur_Sig_clin_List, rowNames = TRUE)
+}
+
+# Sheet 5: PH test summary
+if (!is.null(PH_Summary) && nrow(PH_Summary) > 0) {
+  addWorksheet(wb_final, "PH_Test_Summary")
+  writeData(wb_final, "PH_Test_Summary", PH_Summary, rowNames = FALSE)
+}
+
+saveWorkbook(wb_final, "COAD_CPSM_Complete_Results.xlsx", overwrite = TRUE)
+cat("💾 Complete results workbook: COAD_CPSM_Complete_Results.xlsx\n")
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SESSION INFO
+# ─────────────────────────────────────────────────────────────────────────────
+
+cat("\n📋 Session Info\n")
+cat("================\n")
+sessionInfo()
+
+cat("\n\n🎉 CPSM TCGA-COAD PIPELINE COMPLETE!\n")
+cat("=======================================\n")
+cat("Outputs generated:\n")
+cat("  CSV:   COAD_Univariate_Survival_Genes_Full.csv\n")
+cat("  CSV:   COAD_LASSO_selected_genes.csv\n")
+cat("  CSV:   COAD_Model_Performance.csv\n")
+cat("  XLSX:  COAD_Univariate_Survival_Genes_Full.xlsx\n")
+cat("  XLSX:  COAD_CPSM_Complete_Results.xlsx\n")
+cat("  PNG:   COAD_Volcano_Plot.png\n")
+cat("  PNG:   COAD_Top20_HR_Barplot.png\n")
+cat("  PNG:   COAD_Model_CIndex_Comparison.png\n")
+cat("  PNG:   COAD_KM_Full_Cohort.png\n")
+cat("  PNG:   COAD_KM_Overlay_Plot.png\n")
+cat("  PNG:   COAD_Survival_Curves_All.png\n")
+cat("  PNG:   COAD_Survival_Curves_Highlighted.png\n")
+cat("  PNG:   COAD_MeanMedian_Survival_All.png\n")
+cat("  PNG:   COAD_MeanMedian_Survival_Highlighted.png\n")
+cat("  PNG:   COAD_LASSO_lambda_plot.png\n")
+cat("  PNG:   COAD_Nomogram.png\n")
+```
+

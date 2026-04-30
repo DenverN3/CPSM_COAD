@@ -1,0 +1,458 @@
+"","Age","subtype","gender","race","ajcc_pathologic_tumor_stage","histological_type","histological_grade","treatment_outcome_first_course","radiation_treatment_adjuvant","sample_type","type","OS","OS.time","DSS","DSS.time","DFI","DFI.time","PFI","PFI.time"
+"TCGA-AA-3561-01A-01R-0821-07",72,"COAD","male","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,424,0,424,NA,NA,NA,NA
+"TCGA-AZ-4616-01A-21R-1839-07",82,"COAD","female","white","Stage IV","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,156,1,156,NA,NA,NA,NA
+"TCGA-AY-A71X-01A-12R-A37K-07",54,"COAD","female","black or african american","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,588,0,588,NA,NA,NA,NA
+"TCGA-AA-3861-01A-01R-1022-07",72,"COAD","male","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,914,0,914,NA,NA,NA,NA
+"TCGA-AZ-6603-01A-11R-1839-07",77,"COAD","female","white","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,899,1,899,NA,NA,NA,NA
+"TCGA-AA-A01C-01A-01R-A00A-07",75,"COAD","male","not reported","Stage IIIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,457,0,457,NA,NA,NA,NA
+"TCGA-G4-6627-01A-11R-1774-07",84,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,2175,0,2175,NA,NA,NA,NA
+"TCGA-AZ-6599-01A-11R-1774-07",72,"COAD","male","white","Stage I","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,206,1,206,NA,NA,NA,NA
+"TCGA-F4-6809-01A-11R-1839-07",52,"COAD","female","white","Stage IVA","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,403,1,403,NA,NA,NA,NA
+"TCGA-5M-AAT6-01A-11R-A41B-07",40,"COAD","female","black or african american","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,290,1,290,NA,NA,NA,NA
+"TCGA-AA-A01D-01A-01R-A00A-07",47,"COAD","female","not reported","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,334,1,334,NA,NA,NA,NA
+"TCGA-A6-6653-01A-11R-1774-07",82,"COAD","male","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,742,0,742,NA,NA,NA,NA
+"TCGA-AA-3819-01A-01R-0905-07",41,"COAD","female","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,761,0,761,NA,NA,NA,NA
+"TCGA-AZ-4684-01A-01R-1410-07",49,"COAD","male","white","Stage IVA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1977,0,1977,NA,NA,NA,NA
+"TCGA-D5-6534-01A-21R-1928-07",62,"COAD","female","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1316,0,1316,NA,NA,NA,NA
+"TCGA-DM-A1D8-01A-11R-A155-07",50,"COAD","female","white","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,383,1,383,NA,NA,NA,NA
+"TCGA-AA-3970-01A-01R-1022-07",64,"COAD","male","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1096,0,1096,NA,NA,NA,NA
+"TCGA-QG-A5YW-01A-11R-A28H-07",55,"COAD","female","black or african american","Stage IIIC","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,896,0,896,NA,NA,NA,NA
+"TCGA-AA-3837-01A-01R-0905-07",67,"COAD","male","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1186,0,1186,NA,NA,NA,NA
+"TCGA-G4-6626-01A-11R-1774-07",89,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,1,1,1,NA,NA,NA,NA
+"TCGA-A6-3810-01A-01R-A278-07",62,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1111,0,1111,NA,NA,NA,NA
+"TCGA-AA-3854-01A-01R-0905-07",71,"COAD","female","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1096,0,1096,NA,NA,NA,NA
+"TCGA-CM-5868-01A-01R-1653-07",59,"COAD","female","white","Stage IVA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,518,0,518,NA,NA,NA,NA
+"TCGA-D5-6926-01A-11R-1928-07",65,"COAD","male","white","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,275,0,275,NA,NA,NA,NA
+"TCGA-AA-3688-01A-01R-0905-07",80,"COAD","male","not reported","Stage IV","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,578,0,578,NA,NA,NA,NA
+"TCGA-AA-3543-01A-01R-0826-07",84,"COAD","male","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,30,0,30,NA,NA,NA,NA
+"TCGA-AA-3972-01A-01R-1022-07",72,"COAD","male","not reported","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1551,0,1551,NA,NA,NA,NA
+"TCGA-AZ-6608-01A-11R-1839-07",55,"COAD","female","white","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,59,1,59,NA,NA,NA,NA
+"TCGA-G4-6294-01A-11R-1774-07",75,"COAD","male","white","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,858,1,858,NA,NA,NA,NA
+"TCGA-G4-6625-01A-21R-1774-07",77,"COAD","female","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,2792,0,2792,NA,NA,NA,NA
+"TCGA-AA-3506-01A-01R-1410-07",77,"COAD","male","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1765,0,1765,NA,NA,NA,NA
+"TCGA-AA-A00L-01A-01R-A002-07",66,"COAD","male","not reported","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1157,0,1157,NA,NA,NA,NA
+"TCGA-A6-2677-01A-01R-A278-07",68,"COAD","female","white","Stage III","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,740,1,740,NA,NA,NA,NA
+"TCGA-A6-2677-01A-01R-0821-07",68,"COAD","female","white","Stage III","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,740,1,740,NA,NA,NA,NA
+"TCGA-G4-6321-01A-11R-1723-07",60,"COAD","female","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,672,0,672,NA,NA,NA,NA
+"TCGA-AZ-4681-01A-01R-1410-07",79,"COAD","female","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,3247,0,3247,NA,NA,NA,NA
+"TCGA-AA-3950-01A-02R-1022-07",79,"COAD","female","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,730,0,730,NA,NA,NA,NA
+"TCGA-AA-3862-01A-01R-1022-07",82,"COAD","male","not reported","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,914,0,914,NA,NA,NA,NA
+"TCGA-AZ-4313-01A-01R-1410-07",51,"COAD","female","white","Stage IA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,2310,0,2310,NA,NA,NA,NA
+"TCGA-AA-3842-01A-01R-1022-07",51,"COAD","male","not reported","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1126,0,1126,NA,NA,NA,NA
+"TCGA-CM-4750-01A-01R-1410-07",34,"COAD","female","white","Stage IIIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,244,0,244,NA,NA,NA,NA
+"TCGA-AA-A029-01A-01R-A00A-07",67,"COAD","male","not reported","Stage II","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1581,0,1581,NA,NA,NA,NA
+"TCGA-DM-A28A-01A-21R-A32Y-07",78,"COAD","male","white","Stage IIIC","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,805,1,805,NA,NA,NA,NA
+"TCGA-3L-AA1B-01A-11R-A37K-07",61,"COAD","female","black or african american","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,475,0,475,NA,NA,NA,NA
+"TCGA-DM-A0XF-01A-11R-A155-07",68,"COAD","female","white","Stage IIIC","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,1162,1,1162,NA,NA,NA,NA
+"TCGA-AA-3552-01A-01R-0821-07",85,"COAD","male","not reported","Stage IIIC","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,396,1,396,NA,NA,NA,NA
+"TCGA-AA-3544-01A-01R-1873-07",68,"COAD","male","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,426,0,426,NA,NA,NA,NA
+"TCGA-AA-3975-01A-01R-1022-07",80,"COAD","male","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1036,0,1036,NA,NA,NA,NA
+"TCGA-AD-6895-01A-11R-1928-07",84,"COAD","male","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,763,0,763,NA,NA,NA,NA
+"TCGA-AA-3560-01A-01R-0821-07",72,"COAD","female","not reported","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,608,0,608,NA,NA,NA,NA
+"TCGA-AA-3866-01A-01R-1022-07",78,"COAD","female","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,518,0,518,NA,NA,NA,NA
+"TCGA-A6-6782-01A-11R-1839-07",82,"COAD","male","white","Stage IIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,617,0,617,NA,NA,NA,NA
+"TCGA-A6-6138-01A-11R-1774-07",61,"COAD","male","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,685,0,685,NA,NA,NA,NA
+"TCGA-AA-3844-01A-01R-1022-07",78,"COAD","female","not reported","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,454,0,454,NA,NA,NA,NA
+"TCGA-CK-4952-01A-01R-1723-07",48,"COAD","female","white","Stage IIIC","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,475,0,475,NA,NA,NA,NA
+"TCGA-AD-6890-01A-11R-1928-07",65,"COAD","male","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,746,0,746,NA,NA,NA,NA
+"TCGA-AA-3848-01A-01R-0905-07",82,"COAD","female","not reported","Stage IIIC","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,306,1,306,NA,NA,NA,NA
+"TCGA-AA-A00U-01A-01R-A002-07",50,"COAD","male","not reported","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,518,0,518,NA,NA,NA,NA
+"TCGA-AA-3549-01A-02R-0821-07",69,"COAD","male","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,639,0,639,NA,NA,NA,NA
+"TCGA-AD-6901-01A-11R-1928-07",78,"COAD","male","white","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,682,1,682,NA,NA,NA,NA
+"TCGA-AA-A00Q-01A-01R-A002-07",66,"COAD","female","not reported","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1278,0,1278,NA,NA,NA,NA
+"TCGA-CM-4751-01A-02R-1839-07",62,"COAD","male","white","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,822,0,822,NA,NA,NA,NA
+"TCGA-CM-6674-01A-11R-1839-07",39,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,394,0,394,NA,NA,NA,NA
+"TCGA-AA-3655-01A-02R-1723-07",68,"COAD","male","not reported","Stage II","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1856,0,1856,NA,NA,NA,NA
+"TCGA-A6-5665-01B-03R-2302-07",84,"COAD","female","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,671,0,671,NA,NA,NA,NA
+"TCGA-G4-6317-01A-11R-1723-07",51,"COAD","female","white","Stage IIIC","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1095,0,1095,NA,NA,NA,NA
+"TCGA-AD-6899-01A-11R-1928-07",84,"COAD","male","white","Stage IIIC","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,176,1,176,NA,NA,NA,NA
+"TCGA-D5-6537-01A-11R-1723-07",64,"COAD","male","white","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,146,1,146,NA,NA,NA,NA
+"TCGA-AA-3994-01A-01R-1113-07",69,"COAD","male","not reported","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,822,0,822,NA,NA,NA,NA
+"TCGA-A6-3810-01A-01R-1022-07",62,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1111,0,1111,NA,NA,NA,NA
+"TCGA-AA-3555-01A-01R-0821-07",81,"COAD","female","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,911,0,911,NA,NA,NA,NA
+"TCGA-AA-3949-01A-01R-1022-07",87,"COAD","female","not reported","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,791,0,791,NA,NA,NA,NA
+"TCGA-A6-2672-01A-01R-0826-07",82,"COAD","female","white","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1419,0,1419,NA,NA,NA,NA
+"TCGA-AA-3542-01A-02R-1873-07",69,"COAD","male","not reported","Stage IIIC","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,395,0,395,NA,NA,NA,NA
+"TCGA-AA-3715-01A-01R-0905-07",77,"COAD","male","not reported","Stage II","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,579,1,579,NA,NA,NA,NA
+"TCGA-AA-3860-01A-02R-0905-07",53,"COAD","female","not reported","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,945,0,945,NA,NA,NA,NA
+"TCGA-AA-A024-01A-02R-A00A-07",81,"COAD","male","not reported","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,1188,1,1188,NA,NA,NA,NA
+"TCGA-AA-3516-01A-02R-0826-07",74,"COAD","female","not reported","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,396,1,396,NA,NA,NA,NA
+"TCGA-A6-2682-01A-01R-1410-07",70,"COAD","male","white","Stage II","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,424,1,424,NA,NA,NA,NA
+"TCGA-G4-6314-01A-11R-1723-07",76,"COAD","female","white","Stage IV","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1093,0,1093,NA,NA,NA,NA
+"TCGA-AA-3524-01A-02R-0821-07",85,"COAD","male","not reported","Stage II","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1096,0,1096,NA,NA,NA,NA
+"TCGA-AA-3662-01A-01R-1723-07",80,"COAD","female","not reported","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,184,0,184,NA,NA,NA,NA
+"TCGA-DM-A285-01A-11R-A16W-07",71,"COAD","female","white","Stage IV","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,179,1,179,NA,NA,NA,NA
+"TCGA-AA-3562-01A-02R-0821-07",82,"COAD","male","not reported","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,608,0,608,NA,NA,NA,NA
+"TCGA-AA-3976-01A-01R-1022-07",70,"COAD","male","not reported","Stage IIIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,791,0,791,NA,NA,NA,NA
+"TCGA-AA-3870-01A-01R-1022-07",71,"COAD","female","not reported","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,912,0,912,NA,NA,NA,NA
+"TCGA-AD-6548-01A-11R-1839-07",81,"COAD","female","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,650,0,650,NA,NA,NA,NA
+"TCGA-G4-6307-01A-11R-1723-07",37,"COAD","female","white","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1674,0,1674,NA,NA,NA,NA
+"TCGA-AA-A00Z-01A-01R-A002-07",70,"COAD","male","not reported","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,669,0,669,NA,NA,NA,NA
+"TCGA-AA-3811-01A-01R-1022-07",84,"COAD","female","not reported","Stage III","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,306,1,306,NA,NA,NA,NA
+"TCGA-G4-6586-01A-11R-1774-07",73,"COAD","female","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1089,0,1089,NA,NA,NA,NA
+"TCGA-A6-2680-01A-01R-1410-07",72,"COAD","female","black or african american","Stage II","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1068,0,1068,NA,NA,NA,NA
+"TCGA-A6-6781-01A-22R-1928-07",43,"COAD","male","white","Stage IIIC","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,598,0,598,NA,NA,NA,NA
+"TCGA-AA-A02K-01A-03R-A32Y-07",50,"COAD","male","not reported","Stage IV","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,426,1,426,NA,NA,NA,NA
+"TCGA-CM-5341-01A-01R-1410-07",82,"COAD","female","white","Stage IIIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,884,0,884,NA,NA,NA,NA
+"TCGA-F4-6703-01A-11R-1839-07",64,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1456,0,1456,NA,NA,NA,NA
+"TCGA-AA-A02O-01A-21R-A16W-07",82,"COAD","male","not reported","Stage II","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,28,0,28,NA,NA,NA,NA
+"TCGA-CA-6716-01A-11R-1839-07",65,"COAD","male","asian","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,371,0,371,NA,NA,NA,NA
+"TCGA-CM-5344-01A-21R-1723-07",39,"COAD","female","white","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,670,0,670,NA,NA,NA,NA
+"TCGA-CK-4950-01A-01R-1723-07",68,"COAD","female","black or african american","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,2599,0,2599,NA,NA,NA,NA
+"TCGA-QG-A5YX-01A-11R-A28H-07",61,"COAD","female","black or african american","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1003,0,1003,NA,NA,NA,NA
+"TCGA-AA-3526-01A-02R-A32Z-07",57,"COAD","male","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,580,0,580,NA,NA,NA,NA
+"TCGA-QG-A5Z1-01A-11R-A28H-07",71,"COAD","male","black or african american","Stage IIIB","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,256,1,256,NA,NA,NA,NA
+"TCGA-A6-6648-01A-11R-1774-07",56,"COAD","male","white","Stage IVA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,766,0,766,NA,NA,NA,NA
+"TCGA-AD-6889-01A-11R-1928-07",76,"COAD","male","asian","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,2532,1,2532,NA,NA,NA,NA
+"TCGA-D5-6920-01A-11R-1928-07",76,"COAD","female","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,377,0,377,NA,NA,NA,NA
+"TCGA-CA-5256-01A-01R-1410-07",54,"COAD","female","asian","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,379,0,379,NA,NA,NA,NA
+"TCGA-CM-6170-01A-11R-1653-07",72,"COAD","female","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,457,0,457,NA,NA,NA,NA
+"TCGA-SS-A7HO-01A-21R-A37K-07",44,"COAD","female","black or african american","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1829,0,1829,NA,NA,NA,NA
+"TCGA-CK-4947-01B-11R-1653-07",46,"COAD","female","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,534,0,534,NA,NA,NA,NA
+"TCGA-CM-6675-01A-11R-1839-07",35,"COAD","male","black or african american","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,397,0,397,NA,NA,NA,NA
+"TCGA-AZ-4614-01A-01R-1410-07",71,"COAD","female","white","Stage IVA","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,172,1,172,NA,NA,NA,NA
+"TCGA-A6-A567-01A-31R-A28H-07",56,"COAD","male","black or african american","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,1881,1,1881,NA,NA,NA,NA
+"TCGA-A6-4107-01A-02R-1410-07",57,"COAD","female","white","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,987,0,987,NA,NA,NA,NA
+"TCGA-D5-6932-01A-11R-1928-07",69,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,346,0,346,NA,NA,NA,NA
+"TCGA-CM-6171-01A-11R-1653-07",77,"COAD","female","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,427,0,427,NA,NA,NA,NA
+"TCGA-AA-3679-01A-02R-0905-07",59,"COAD","male","not reported","Stage IV","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,457,0,457,NA,NA,NA,NA
+"TCGA-CA-5254-01A-21R-1839-07",42,"COAD","female","asian","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,386,0,386,NA,NA,NA,NA
+"TCGA-D5-6930-01A-11R-1928-07",67,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,406,0,406,NA,NA,NA,NA
+"TCGA-F4-6704-01A-11R-1839-07",60,"COAD","male","american indian or alaska native","Stage IIIC","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,47,0,47,NA,NA,NA,NA
+"TCGA-AZ-4615-01A-01R-1410-07",84,"COAD","male","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1002,0,1002,NA,NA,NA,NA
+"TCGA-D5-6536-01A-11R-1723-07",73,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,543,0,543,NA,NA,NA,NA
+"TCGA-F4-6855-01A-11R-1928-07",70,"COAD","female","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1442,0,1442,NA,NA,NA,NA
+"TCGA-A6-2674-01A-02R-A278-07",71,"COAD","male","white","Stage IV","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1331,0,1331,NA,NA,NA,NA
+"TCGA-A6-2674-01B-04R-A277-07",71,"COAD","male","white","Stage IV","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1331,0,1331,NA,NA,NA,NA
+"TCGA-A6-2674-01A-02R-0821-07",71,"COAD","male","white","Stage IV","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1331,0,1331,NA,NA,NA,NA
+"TCGA-AA-A01T-01A-21R-A16W-07",63,"COAD","female","not reported","Stage III","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1005,0,1005,NA,NA,NA,NA
+"TCGA-QG-A5Z2-01A-11R-A28H-07",61,"COAD","male","black or african american","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,952,0,952,NA,NA,NA,NA
+"TCGA-AU-3779-01A-01R-1723-07",80,"COAD","female","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,441,0,441,NA,NA,NA,NA
+"TCGA-AA-3667-01A-01R-0905-07",36,"COAD","female","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,426,0,426,NA,NA,NA,NA
+"TCGA-AA-3664-01A-01R-0905-07",74,"COAD","female","not reported","Stage II","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1643,0,1643,NA,NA,NA,NA
+"TCGA-AA-3666-01A-02R-0905-07",68,"COAD","male","not reported","Stage III","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,61,1,61,NA,NA,NA,NA
+"TCGA-AA-3930-01A-01R-1022-07",66,"COAD","male","not reported","Stage IV","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,61,1,61,NA,NA,NA,NA
+"TCGA-AZ-4308-01A-01R-1410-07",47,"COAD","female","white","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,3324,0,3324,NA,NA,NA,NA
+"TCGA-CK-5913-01A-11R-1653-07",58,"COAD","female","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1561,0,1561,NA,NA,NA,NA
+"TCGA-AA-A010-01A-01R-A089-07",46,"COAD","female","not reported","Stage IIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1064,0,1064,NA,NA,NA,NA
+"TCGA-A6-2675-01A-02R-1723-07",78,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1321,0,1321,NA,NA,NA,NA
+"TCGA-A6-2679-01A-02R-1410-07",73,"COAD","female","white","Stage IIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1366,0,1366,NA,NA,NA,NA
+"TCGA-AD-5900-01A-11R-1653-07",67,"COAD","male","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,370,0,370,NA,NA,NA,NA
+"TCGA-5M-AAT4-01A-11R-A41B-07",74,"COAD","male","black or african american","Stage IV","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,49,1,49,NA,NA,NA,NA
+"TCGA-AA-A00E-01A-01R-A002-07",64,"COAD","male","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,913,0,913,NA,NA,NA,NA
+"TCGA-AA-A01F-01A-01R-A002-07",72,"COAD","male","not reported","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,974,0,974,NA,NA,NA,NA
+"TCGA-AA-A01P-01A-21R-A083-07",80,"COAD","female","not reported","Stage III","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,1158,1,1158,NA,NA,NA,NA
+"TCGA-DM-A288-01A-11R-A16W-07",68,"COAD","male","white","Stage IIIC","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,427,1,427,NA,NA,NA,NA
+"TCGA-AY-5543-01A-01R-1653-07",65,"COAD","female","black or african american","Stage IVA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1004,0,1004,NA,NA,NA,NA
+"TCGA-AA-3495-01A-01R-1410-07",79,"COAD","male","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1127,0,1127,NA,NA,NA,NA
+"TCGA-DM-A1D0-01A-11R-A155-07",79,"COAD","female","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,3974,0,3974,NA,NA,NA,NA
+"TCGA-G4-6303-01A-11R-1774-07",54,"COAD","female","white","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,2003,1,2003,NA,NA,NA,NA
+"TCGA-AM-5820-01A-01R-1653-07",59,"COAD","female","white","Stage IVA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,14,0,14,NA,NA,NA,NA
+"TCGA-G4-6293-01A-11R-1723-07",49,"COAD","female","white","Stage III","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,4051,0,4051,NA,NA,NA,NA
+"TCGA-D5-6898-01A-11R-1928-07",51,"COAD","female","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,229,0,229,NA,NA,NA,NA
+"TCGA-A6-5667-01A-21R-1723-07",40,"COAD","female","white","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,887,0,887,NA,NA,NA,NA
+"TCGA-F4-6461-01A-11R-1774-07",41,"COAD","female","white","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,338,1,338,NA,NA,NA,NA
+"TCGA-F4-6460-01A-11R-1774-07",51,"COAD","female","white","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,972,1,972,NA,NA,NA,NA
+"TCGA-D5-6541-01A-11R-1723-07",49,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,474,0,474,NA,NA,NA,NA
+"TCGA-AA-3869-01A-01R-1022-07",76,"COAD","male","not reported","Stage IV","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,822,1,822,NA,NA,NA,NA
+"TCGA-CK-5916-01A-11R-1653-07",71,"COAD","female","white","Stage I","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,643,1,643,NA,NA,NA,NA
+"TCGA-CA-5797-01A-01R-1653-07",56,"COAD","male","asian","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,383,0,383,NA,NA,NA,NA
+"TCGA-CM-6172-01A-11R-1653-07",70,"COAD","female","white","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,335,0,335,NA,NA,NA,NA
+"TCGA-AD-6963-01A-11R-1928-07",58,"COAD","male","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,834,0,834,NA,NA,NA,NA
+"TCGA-A6-A5ZU-01A-11R-A28H-07",59,"COAD","male","black or african american","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,293,0,293,NA,NA,NA,NA
+"TCGA-NH-A50T-01A-11R-A28H-07",68,"COAD","female","black or african american","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,553,0,553,NA,NA,NA,NA
+"TCGA-F4-6808-01A-11R-1839-07",54,"COAD","female","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1024,0,1024,NA,NA,NA,NA
+"TCGA-AA-A01Q-01A-01R-A002-07",48,"COAD","female","not reported","Stage II","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,31,0,31,NA,NA,NA,NA
+"TCGA-NH-A6GA-01A-11R-A37K-07",58,"COAD","male","black or african american","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,302,1,302,NA,NA,NA,NA
+"TCGA-AA-3875-01A-01R-0905-07",78,"COAD","female","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,549,0,549,NA,NA,NA,NA
+"TCGA-A6-2671-01A-01R-1410-07",85,"COAD","male","white","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,1331,1,1331,NA,NA,NA,NA
+"TCGA-DM-A1HA-01A-11R-A155-07",82,"COAD","male","white","Stage IIIC","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,2600,0,2600,NA,NA,NA,NA
+"TCGA-CM-4747-01A-01R-1410-07",47,"COAD","male","white","Stage IVA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,761,0,761,NA,NA,NA,NA
+"TCGA-CK-5914-01A-11R-1653-07",81,"COAD","male","white","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,669,0,669,NA,NA,NA,NA
+"TCGA-AA-3982-01A-02R-1022-07",75,"COAD","male","not reported","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,822,0,822,NA,NA,NA,NA
+"TCGA-CM-5864-01A-01R-1653-07",60,"COAD","male","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,457,0,457,NA,NA,NA,NA
+"TCGA-CK-4948-01B-11R-1653-07",45,"COAD","female","white","Stage III","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,4502,0,4502,NA,NA,NA,NA
+"TCGA-AA-3520-01A-01R-0821-07",86,"COAD","female","not reported","Stage II","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,731,0,731,NA,NA,NA,NA
+"TCGA-RU-A8FL-01A-11R-A37K-07",51,"COAD","male","black or african american","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1177,0,1177,NA,NA,NA,NA
+"TCGA-AM-5821-01A-01R-1653-07",68,"COAD","female","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,28,0,28,NA,NA,NA,NA
+"TCGA-AA-A00F-01A-01R-A002-07",66,"COAD","male","not reported","Stage IIIC","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1035,0,1035,NA,NA,NA,NA
+"TCGA-G4-6297-01A-11R-1723-07",55,"COAD","female","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,2506,0,2506,NA,NA,NA,NA
+"TCGA-D5-6929-01A-31R-1928-07",49,"COAD","female","white","Stage IV","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,408,0,408,NA,NA,NA,NA
+"TCGA-AZ-6607-01A-11R-1839-07",69,"COAD","male","white","Stage IV","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,97,1,97,NA,NA,NA,NA
+"TCGA-A6-6650-01B-02R-A277-07",69,"COAD","female","black or african american","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,627,0,627,NA,NA,NA,NA
+"TCGA-AA-3494-01A-01R-1410-07",55,"COAD","male","not reported","Stage IV","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,31,0,31,NA,NA,NA,NA
+"TCGA-AA-3488-01A-01R-1410-07",58,"COAD","male","not reported","Stage IV","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,153,1,153,NA,NA,NA,NA
+"TCGA-AA-A01G-01A-01R-A002-07",63,"COAD","male","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,365,0,365,NA,NA,NA,NA
+"TCGA-A6-A56B-01A-31R-A28H-07",57,"COAD","male","black or african american","Stage IIIB","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,1711,1,1711,NA,NA,NA,NA
+"TCGA-CK-6747-01A-11R-1839-07",87,"COAD","female","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,820,0,820,NA,NA,NA,NA
+"TCGA-CM-6679-01A-11R-1839-07",58,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,306,0,306,NA,NA,NA,NA
+"TCGA-AA-3841-01A-01R-0905-07",66,"COAD","male","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1124,0,1124,NA,NA,NA,NA
+"TCGA-AA-3509-01A-01R-1410-07",54,"COAD","female","not reported","Stage II","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1915,0,1915,NA,NA,NA,NA
+"TCGA-AA-3941-01A-01R-1022-07",84,"COAD","female","not reported","Stage IVA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,730,0,730,NA,NA,NA,NA
+"TCGA-AZ-5403-01A-01R-1653-07",43,"COAD","male","white","Stage II","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,1910,1,1910,NA,NA,NA,NA
+"TCGA-DM-A28E-01A-11R-A32Y-07",72,"COAD","female","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,3648,0,3648,NA,NA,NA,NA
+"TCGA-AZ-6605-01A-11R-1839-07",77,"COAD","male","white","Stage IIIB","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,159,1,159,NA,NA,NA,NA
+"TCGA-CM-6163-01A-11R-1653-07",74,"COAD","male","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,427,0,427,NA,NA,NA,NA
+"TCGA-A6-6780-01A-11R-A278-07",74,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,612,0,612,NA,NA,NA,NA
+"TCGA-A6-6780-01B-04R-A277-07",74,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,612,0,612,NA,NA,NA,NA
+"TCGA-D5-6538-01A-11R-1723-07",79,"COAD","female","white","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,521,0,521,NA,NA,NA,NA
+"TCGA-NH-A50U-01A-33R-A37K-07",42,"COAD","male","black or african american","Stage IVA","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,334,1,334,NA,NA,NA,NA
+"TCGA-D5-6535-01A-11R-1723-07",80,"COAD","female","white","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,460,0,460,NA,NA,NA,NA
+"TCGA-AA-A02Y-01A-43R-A32Y-07",73,"COAD","male","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1216,0,1216,NA,NA,NA,NA
+"TCGA-5M-AATE-01A-11R-A41B-07",76,"COAD","male","black or african american","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1200,0,1200,NA,NA,NA,NA
+"TCGA-CM-6677-01A-11R-1839-07",75,"COAD","female","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,337,0,337,NA,NA,NA,NA
+"TCGA-CM-5348-01A-21R-1723-07",72,"COAD","male","white","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,699,0,699,NA,NA,NA,NA
+"TCGA-F4-6806-01A-11R-1839-07",59,"COAD","female","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1260,0,1260,NA,NA,NA,NA
+"TCGA-AA-3518-01A-02R-0826-07",81,"COAD","female","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,31,0,31,NA,NA,NA,NA
+"TCGA-D5-6924-01A-11R-1928-07",68,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,435,0,435,NA,NA,NA,NA
+"TCGA-A6-6142-01A-11R-1774-07",56,"COAD","female","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,763,0,763,NA,NA,NA,NA
+"TCGA-AA-3864-01A-01R-1022-07",71,"COAD","male","not reported","Stage II","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1612,0,1612,NA,NA,NA,NA
+"TCGA-CM-4743-01A-01R-1723-07",69,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,701,0,701,NA,NA,NA,NA
+"TCGA-DM-A1DB-01A-11R-A155-07",68,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,1348,1,1348,NA,NA,NA,NA
+"TCGA-A6-5657-01A-01R-A32Z-07",65,"COAD","male","black or african american","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,962,0,962,NA,NA,NA,NA
+"TCGA-AA-A00N-01A-02R-A00A-07",75,"COAD","male","not reported","Stage IIB","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,122,1,122,NA,NA,NA,NA
+"TCGA-A6-2685-01A-01R-1410-07",48,"COAD","female","black or african american","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1133,0,1133,NA,NA,NA,NA
+"TCGA-DM-A282-01A-12R-A16W-07",60,"COAD","female","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,4233,0,4233,NA,NA,NA,NA
+"TCGA-F4-6805-01A-11R-1839-07",58,"COAD","female","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1047,0,1047,NA,NA,NA,NA
+"TCGA-AD-A5EK-01A-11R-A28H-07",51,"COAD","male","black or african american","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,500,0,500,NA,NA,NA,NA
+"TCGA-A6-5656-01A-21R-A278-07",74,"COAD","male","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1001,0,1001,NA,NA,NA,NA
+"TCGA-A6-5656-01A-21R-1839-07",74,"COAD","male","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1001,0,1001,NA,NA,NA,NA
+"TCGA-A6-5656-01B-02R-A277-07",74,"COAD","male","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1001,0,1001,NA,NA,NA,NA
+"TCGA-CM-6165-01A-11R-1653-07",74,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,488,0,488,NA,NA,NA,NA
+"TCGA-D5-6533-01A-11R-1723-07",68,"COAD","female","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,775,0,775,NA,NA,NA,NA
+"TCGA-AA-A00W-01A-01R-A002-07",80,"COAD","male","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,456,0,456,NA,NA,NA,NA
+"TCGA-A6-2683-01A-01R-0821-07",57,"COAD","female","white","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,504,1,504,NA,NA,NA,NA
+"TCGA-DM-A28C-01A-11R-A32Y-07",74,"COAD","male","white","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,2475,1,2475,NA,NA,NA,NA
+"TCGA-DM-A28G-01A-11R-A16W-07",75,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,1849,1,1849,NA,NA,NA,NA
+"TCGA-AD-6888-01A-11R-1928-07",73,"COAD","male","white","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,472,1,472,NA,NA,NA,NA
+"TCGA-AA-3692-01A-01R-0905-07",47,"COAD","female","not reported","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,1095,1,1095,NA,NA,NA,NA
+"TCGA-AA-3952-01A-01R-1022-07",68,"COAD","male","not reported","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,61,1,61,NA,NA,NA,NA
+"TCGA-AA-3525-01A-02R-0826-07",89,"COAD","male","not reported","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1,0,1,NA,NA,NA,NA
+"TCGA-AA-3530-01A-01R-1022-07",80,"COAD","male","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,580,0,580,NA,NA,NA,NA
+"TCGA-G4-6310-01A-11R-1723-07",69,"COAD","male","white","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1935,0,1935,NA,NA,NA,NA
+"TCGA-A6-2677-01B-02R-A277-07",68,"COAD","female","white","Stage III","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,740,1,740,NA,NA,NA,NA
+"TCGA-AD-6964-01A-11R-1928-07",58,"COAD","male","white","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,331,1,331,NA,NA,NA,NA
+"TCGA-G4-6628-01A-11R-1839-07",78,"COAD","male","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,2424,0,2424,NA,NA,NA,NA
+"TCGA-AA-3713-01A-21R-1723-07",68,"COAD","male","not reported","Stage IV","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,579,0,579,NA,NA,NA,NA
+"TCGA-CM-5863-01A-21R-1839-07",60,"COAD","female","white","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,457,0,457,NA,NA,NA,NA
+"TCGA-AA-3511-01A-21R-1839-07",64,"COAD","male","not reported","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,212,0,212,NA,NA,NA,NA
+"TCGA-AA-3554-01A-01R-0826-07",62,"COAD","female","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,546,0,546,NA,NA,NA,NA
+"TCGA-AA-3675-01A-02R-0905-07",84,"COAD","male","not reported","Stage II","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1431,0,1431,NA,NA,NA,NA
+"TCGA-A6-6781-01A-22R-A278-07",43,"COAD","male","white","Stage IIIC","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,598,0,598,NA,NA,NA,NA
+"TCGA-A6-2676-01A-01R-0826-07",75,"COAD","female","white","Stage IIB","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,1305,1,1305,NA,NA,NA,NA
+"TCGA-T9-A92H-01A-11R-A37K-07",82,"COAD","male","black or african american","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,362,0,362,NA,NA,NA,NA
+"TCGA-DM-A28K-01A-21R-A32Y-07",75,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,2988,0,2988,NA,NA,NA,NA
+"TCGA-AY-A8YK-01A-11R-A41B-07",44,"COAD","male","black or african american","Stage IVA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,573,0,573,NA,NA,NA,NA
+"TCGA-AD-6965-01A-11R-1928-07",62,"COAD","male","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,805,0,805,NA,NA,NA,NA
+"TCGA-A6-2678-01A-01R-0821-07",43,"COAD","female","white","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1286,0,1286,NA,NA,NA,NA
+"TCGA-CM-6680-01A-11R-1839-07",78,"COAD","female","white","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,366,0,366,NA,NA,NA,NA
+"TCGA-AA-3867-01A-01R-1022-07",73,"COAD","male","not reported","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,731,0,731,NA,NA,NA,NA
+"TCGA-F4-6570-01A-11R-1774-07",78,"COAD","female","white","Stage IIA","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,188,1,188,NA,NA,NA,NA
+"TCGA-CK-5912-01A-11R-1653-07",81,"COAD","male","white","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,1493,1,1493,NA,NA,NA,NA
+"TCGA-AA-3833-01A-01R-0905-07",63,"COAD","female","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,485,0,485,NA,NA,NA,NA
+"TCGA-AA-3986-01A-02R-1022-07",73,"COAD","male","not reported","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,580,0,580,NA,NA,NA,NA
+"TCGA-A6-6654-01A-21R-1839-07",65,"COAD","female","white","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,726,0,726,NA,NA,NA,NA
+"TCGA-AA-A01X-01A-21R-A083-07",80,"COAD","female","not reported","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,791,0,791,NA,NA,NA,NA
+"TCGA-CM-5860-01A-01R-1653-07",44,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,974,0,974,NA,NA,NA,NA
+"TCGA-CM-6162-01A-11R-1653-07",48,"COAD","female","white","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,365,0,365,NA,NA,NA,NA
+"TCGA-A6-6140-01A-11R-1774-07",62,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,734,0,734,NA,NA,NA,NA
+"TCGA-A6-2681-01A-01R-1410-07",73,"COAD","female","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1387,0,1387,NA,NA,NA,NA
+"TCGA-DM-A1D7-01A-11R-A155-07",82,"COAD","male","white","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,405,1,405,NA,NA,NA,NA
+"TCGA-AA-3812-01A-01R-0905-07",82,"COAD","female","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1066,0,1066,NA,NA,NA,NA
+"TCGA-A6-3807-01A-01R-1022-07",53,"COAD","female","white","Stage IIIC","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1054,0,1054,NA,NA,NA,NA
+"TCGA-AZ-4323-01A-21R-1839-07",37,"COAD","male","white","Stage IV","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,43,1,43,NA,NA,NA,NA
+"TCGA-D5-6923-01A-11R-A32Z-07",57,"COAD","male","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,378,0,378,NA,NA,NA,NA
+"TCGA-CM-4752-01A-01R-1410-07",58,"COAD","male","black or african american","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,396,0,396,NA,NA,NA,NA
+"TCGA-AA-3815-01A-01R-1022-07",65,"COAD","female","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1005,0,1005,NA,NA,NA,NA
+"TCGA-AA-A01R-01A-21R-A083-07",47,"COAD","male","not reported","Stage III","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1065,0,1065,NA,NA,NA,NA
+"TCGA-AA-3538-01A-01R-0821-07",54,"COAD","female","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,791,0,791,NA,NA,NA,NA
+"TCGA-AA-3980-01A-02R-1022-07",89,"COAD","female","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,242,0,242,NA,NA,NA,NA
+"TCGA-A6-5659-01B-04R-A277-07",82,"COAD","male","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,926,0,926,NA,NA,NA,NA
+"TCGA-AA-3856-01A-01R-0905-07",59,"COAD","male","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,30,0,30,NA,NA,NA,NA
+"TCGA-AA-A004-01A-01R-A00A-07",76,"COAD","male","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,424,0,424,NA,NA,NA,NA
+"TCGA-A6-5659-01A-01R-1653-07",82,"COAD","male","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,926,0,926,NA,NA,NA,NA
+"TCGA-A6-5666-01A-01R-1653-07",78,"COAD","male","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,995,0,995,NA,NA,NA,NA
+"TCGA-AU-6004-01A-11R-1723-07",69,"COAD","female","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,824,0,824,NA,NA,NA,NA
+"TCGA-AA-3947-01A-01R-1022-07",60,"COAD","female","not reported","Stage IIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1004,0,1004,NA,NA,NA,NA
+"TCGA-DM-A28M-01A-12R-A16W-07",63,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,2895,0,2895,NA,NA,NA,NA
+"TCGA-A6-5660-01A-01R-1653-07",73,"COAD","male","black or african american","Stage IIIC","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,888,0,888,NA,NA,NA,NA
+"TCGA-AZ-6600-01A-11R-1774-07",64,"COAD","male","black or african american","Stage IV","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,368,1,368,NA,NA,NA,NA
+"TCGA-AA-3710-01A-01R-1022-07",80,"COAD","female","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,821,0,821,NA,NA,NA,NA
+"TCGA-F4-6856-01A-11R-1928-07",45,"COAD","male","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1074,0,1074,NA,NA,NA,NA
+"TCGA-D5-5539-01A-01R-1653-07",60,"COAD","male","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,596,0,596,NA,NA,NA,NA
+"TCGA-A6-5661-01B-05R-2302-07",80,"COAD","female","black or african american","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1020,0,1020,NA,NA,NA,NA
+"TCGA-A6-5661-01A-01R-1653-07",80,"COAD","female","black or african american","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1020,0,1020,NA,NA,NA,NA
+"TCGA-AA-3663-01A-01R-1723-07",42,"COAD","male","not reported","Stage II","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,212,0,212,NA,NA,NA,NA
+"TCGA-A6-2684-01A-01R-1410-07",75,"COAD","female","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1127,0,1127,NA,NA,NA,NA
+"TCGA-A6-2684-01A-01R-A278-07",75,"COAD","female","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1127,0,1127,NA,NA,NA,NA
+"TCGA-A6-2684-01C-08R-A277-07",75,"COAD","female","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1127,0,1127,NA,NA,NA,NA
+"TCGA-CK-4951-01A-01R-1410-07",79,"COAD","female","white","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,2134,1,2134,NA,NA,NA,NA
+"TCGA-AA-3492-01A-01R-1410-07",89,"COAD","female","not reported","Stage II","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,1,1,1,NA,NA,NA,NA
+"TCGA-CK-6751-01A-11R-1839-07",88,"COAD","female","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,518,0,518,NA,NA,NA,NA
+"TCGA-DM-A1HB-01A-21R-A180-07",75,"COAD","male","white","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,4126,0,4126,NA,NA,NA,NA
+"TCGA-AA-3846-01A-01R-1022-07",74,"COAD","female","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,518,0,518,NA,NA,NA,NA
+"TCGA-CM-6166-01A-11R-1653-07",48,"COAD","female","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,669,0,669,NA,NA,NA,NA
+"TCGA-CM-6168-01A-11R-1653-07",84,"COAD","female","black or african american","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,395,0,395,NA,NA,NA,NA
+"TCGA-NH-A8F8-01A-72R-A41B-07",79,"COAD","male","black or african american","Stage IV","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,511,1,511,NA,NA,NA,NA
+"TCGA-AA-3855-01A-01R-1022-07",72,"COAD","male","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,975,0,975,NA,NA,NA,NA
+"TCGA-AZ-6606-01A-11R-1839-07",81,"COAD","male","white","Stage IV","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,357,1,357,NA,NA,NA,NA
+"TCGA-G4-6315-01A-11R-1723-07",66,"COAD","male","white","Stage IV","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1883,0,1883,NA,NA,NA,NA
+"TCGA-G4-6309-01A-21R-1839-07",40,"COAD","female","black or african american","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,2600,0,2600,NA,NA,NA,NA
+"TCGA-AA-3956-01A-02R-1022-07",65,"COAD","male","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1035,0,1035,NA,NA,NA,NA
+"TCGA-AY-6196-01A-11R-1723-07",47,"COAD","male","white","Stage IIIC","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,6,0,6,NA,NA,NA,NA
+"TCGA-DM-A280-01A-12R-A16W-07",70,"COAD","female","white","Stage IIA","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,236,1,236,NA,NA,NA,NA
+"TCGA-QG-A5YV-01A-11R-A28H-07",64,"COAD","female","black or african american","Stage IIIC","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1301,0,1301,NA,NA,NA,NA
+"TCGA-G4-6320-01A-11R-1723-07",73,"COAD","male","white","Stage III","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,804,0,804,NA,NA,NA,NA
+"TCGA-AA-3877-01A-01R-1022-07",83,"COAD","female","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,943,0,943,NA,NA,NA,NA
+"TCGA-AA-A02J-01A-01R-A00A-07",70,"COAD","female","not reported","Stage IV","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,153,1,153,NA,NA,NA,NA
+"TCGA-F4-6854-01A-11R-1928-07",77,"COAD","female","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,16,0,16,NA,NA,NA,NA
+"TCGA-AA-A00O-01A-02R-A089-07",83,"COAD","female","not reported","Stage IIIC","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,822,0,822,NA,NA,NA,NA
+"TCGA-DM-A28F-01A-11R-A32Y-07",73,"COAD","male","white","Stage IIIB","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,1094,1,1094,NA,NA,NA,NA
+"TCGA-NH-A6GC-01A-12R-A41B-07",66,"COAD","female","black or african american","Stage IVB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,389,0,389,NA,NA,NA,NA
+"TCGA-AA-3519-01A-02R-0821-07",63,"COAD","male","not reported","Stage III","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,276,0,276,NA,NA,NA,NA
+"TCGA-D5-6922-01A-11R-1928-07",76,"COAD","male","white","Stage IIIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,308,0,308,NA,NA,NA,NA
+"TCGA-G4-6323-01A-11R-1723-07",50,"COAD","male","black or african american","Stage IA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,419,0,419,NA,NA,NA,NA
+"TCGA-AA-A01V-01A-23R-A083-07",59,"COAD","male","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,31,0,31,NA,NA,NA,NA
+"TCGA-AA-A00K-01A-02R-A002-07",79,"COAD","male","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,549,0,549,NA,NA,NA,NA
+"TCGA-A6-6651-01A-21R-1839-07",55,"COAD","female","white","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,662,0,662,NA,NA,NA,NA
+"TCGA-AA-A00A-01A-01R-A002-07",80,"COAD","male","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1157,0,1157,NA,NA,NA,NA
+"TCGA-AA-3851-01A-01R-1022-07",74,"COAD","male","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1006,0,1006,NA,NA,NA,NA
+"TCGA-AA-3548-01A-01R-1873-07",71,"COAD","female","not reported","Stage IIIC","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1034,0,1034,NA,NA,NA,NA
+"TCGA-D5-5540-01A-01R-1653-07",73,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1706,0,1706,NA,NA,NA,NA
+"TCGA-AA-3977-01A-01R-1022-07",65,"COAD","male","not reported","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,761,0,761,NA,NA,NA,NA
+"TCGA-CM-6161-01A-11R-1653-07",36,"COAD","female","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,457,0,457,NA,NA,NA,NA
+"TCGA-AA-A02E-01A-01R-A00A-07",82,"COAD","female","not reported","Stage IV","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,90,1,90,NA,NA,NA,NA
+"TCGA-AY-6386-01A-21R-1723-07",66,"COAD","female","black or african american","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,542,0,542,NA,NA,NA,NA
+"TCGA-A6-6141-01A-11R-1774-07",31,"COAD","male","black or african american","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,255,0,255,NA,NA,NA,NA
+"TCGA-D5-6931-01A-11R-1928-07",77,"COAD","male","white","Stage IIIC","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,365,0,365,NA,NA,NA,NA
+"TCGA-NH-A8F7-01A-11R-A41B-07",53,"COAD","female","black or african american","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,543,0,543,NA,NA,NA,NA
+"TCGA-CA-5796-01A-01R-1653-07",52,"COAD","female","asian","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,377,0,377,NA,NA,NA,NA
+"TCGA-A6-6650-01A-11R-A278-07",69,"COAD","female","black or african american","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,627,0,627,NA,NA,NA,NA
+"TCGA-A6-6650-01A-11R-1774-07",69,"COAD","female","black or african american","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,627,0,627,NA,NA,NA,NA
+"TCGA-AA-A02H-01A-01R-A089-07",74,"COAD","female","not reported","Stage IV","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,61,1,61,NA,NA,NA,NA
+"TCGA-AY-4070-01A-01R-1113-07",50,"COAD","female","black or african american","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,496,1,496,NA,NA,NA,NA
+"TCGA-DM-A0X9-01A-11R-A155-07",71,"COAD","female","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,3641,0,3641,NA,NA,NA,NA
+"TCGA-AA-A02R-01A-01R-A00A-07",84,"COAD","female","not reported","Stage IIA","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,670,1,670,NA,NA,NA,NA
+"TCGA-WS-AB45-01A-11R-A41B-07",52,"COAD","female","black or african american","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,2130,0,2130,NA,NA,NA,NA
+"TCGA-DM-A1D4-01A-21R-A155-07",80,"COAD","male","white","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,2821,1,2821,NA,NA,NA,NA
+"TCGA-AA-3502-01A-01R-1410-07",73,"COAD","male","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1065,0,1065,NA,NA,NA,NA
+"TCGA-A6-3809-01B-04R-A277-07",71,"COAD","female","white","Stage IIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,996,0,996,NA,NA,NA,NA
+"TCGA-A6-3809-01A-01R-A278-07",71,"COAD","female","white","Stage IIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,996,0,996,NA,NA,NA,NA
+"TCGA-A6-3809-01A-01R-1022-07",71,"COAD","female","white","Stage IIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,996,0,996,NA,NA,NA,NA
+"TCGA-AA-A01I-01A-02R-A089-07",76,"COAD","male","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,943,0,943,NA,NA,NA,NA
+"TCGA-A6-6780-01A-11R-1839-07",74,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,612,0,612,NA,NA,NA,NA
+"TCGA-4N-A93T-01A-11R-A37K-07",67,"COAD","male","black or african american","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,146,0,146,NA,NA,NA,NA
+"TCGA-CK-6748-01A-11R-1839-07",45,"COAD","female","white","Stage IV","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,61,0,61,NA,NA,NA,NA
+"TCGA-D5-5541-01A-01R-1653-07",63,"COAD","male","white","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1701,0,1701,NA,NA,NA,NA
+"TCGA-A6-5662-01A-01R-1653-07",46,"COAD","male","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,718,0,718,NA,NA,NA,NA
+"TCGA-CM-5861-01A-01R-1653-07",63,"COAD","female","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,457,0,457,NA,NA,NA,NA
+"TCGA-CA-6719-01A-11R-1839-07",77,"COAD","male","asian","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,435,0,435,NA,NA,NA,NA
+"TCGA-F4-6459-01A-11R-1774-07",61,"COAD","female","white","Stage IIIB","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,262,1,262,NA,NA,NA,NA
+"TCGA-D5-6927-01A-21R-1928-07",34,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,287,0,287,NA,NA,NA,NA
+"TCGA-DM-A0XD-01A-12R-A155-07",65,"COAD","male","white","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,743,1,743,NA,NA,NA,NA
+"TCGA-AZ-6598-01A-11R-1774-07",77,"COAD","female","white","Stage II","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,1503,1,1503,NA,NA,NA,NA
+"TCGA-4T-AA8H-01A-11R-A41B-07",42,"COAD","female","black or african american","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,385,0,385,NA,NA,NA,NA
+"TCGA-AA-3696-01A-01R-0905-07",75,"COAD","female","not reported","Stage IV","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,153,1,153,NA,NA,NA,NA
+"TCGA-AA-A01K-01A-01R-A00A-07",74,"COAD","female","not reported","Stage IIIC","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,943,0,943,NA,NA,NA,NA
+"TCGA-AA-3681-01A-01R-0905-07",77,"COAD","female","not reported","Stage III","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,182,0,182,NA,NA,NA,NA
+"TCGA-D5-5537-01A-21R-1928-07",83,"COAD","male","white","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,1381,1,1381,NA,NA,NA,NA
+"TCGA-D5-6532-01A-11R-1723-07",61,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,555,0,555,NA,NA,NA,NA
+"TCGA-AY-A69D-01A-11R-A37K-07",55,"COAD","female","black or african american","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,543,0,543,NA,NA,NA,NA
+"TCGA-AA-A017-01A-01R-A00A-07",57,"COAD","female","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,457,0,457,NA,NA,NA,NA
+"TCGA-G4-6322-01A-11R-1723-07",65,"COAD","male","white","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,792,0,792,NA,NA,NA,NA
+"TCGA-AZ-5407-01A-01R-1723-07",51,"COAD","female","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,2683,0,2683,NA,NA,NA,NA
+"TCGA-AA-3489-01A-21R-1839-07",75,"COAD","male","not reported","Stage II","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,214,1,214,NA,NA,NA,NA
+"TCGA-CM-4746-01A-01R-1410-07",61,"COAD","male","black or african american","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1126,0,1126,NA,NA,NA,NA
+"TCGA-AA-3517-01A-01R-0821-07",60,"COAD","male","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1186,0,1186,NA,NA,NA,NA
+"TCGA-AA-3831-01A-01R-0905-07",66,"COAD","male","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,547,0,547,NA,NA,NA,NA
+"TCGA-AA-3678-01A-01R-0905-07",60,"COAD","female","not reported","Stage III","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1430,0,1430,NA,NA,NA,NA
+"TCGA-AA-A00R-01A-01R-A002-07",64,"COAD","female","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,30,0,30,NA,NA,NA,NA
+"TCGA-AA-3968-01A-01R-1022-07",55,"COAD","female","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,669,0,669,NA,NA,NA,NA
+"TCGA-F4-6463-01A-11R-1723-07",51,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1087,0,1087,NA,NA,NA,NA
+"TCGA-CM-4744-01A-01R-A32Z-07",69,"COAD","male","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,609,0,609,NA,NA,NA,NA
+"TCGA-D5-7000-01A-11R-A32Z-07",79,"COAD","female","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,312,0,312,NA,NA,NA,NA
+"TCGA-AA-3534-01A-01R-0821-07",77,"COAD","female","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,882,0,882,NA,NA,NA,NA
+"TCGA-G4-6295-01A-11R-1723-07",70,"COAD","female","white","Stage II","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,254,0,254,NA,NA,NA,NA
+"TCGA-AA-3685-01A-02R-A32Z-07",69,"COAD","male","not reported","Stage II","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1127,0,1127,NA,NA,NA,NA
+"TCGA-NH-A6GB-01A-11R-A37K-07",71,"COAD","female","black or african american","Stage IIIC","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,476,0,476,NA,NA,NA,NA
+"TCGA-AA-A02F-01A-01R-A089-07",68,"COAD","female","not reported","Stage IV","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1216,0,1216,NA,NA,NA,NA
+"TCGA-AZ-4682-01B-01R-A32Z-07",61,"COAD","male","white","Stage IVA","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,680,1,680,NA,NA,NA,NA
+"TCGA-DM-A1D9-01A-11R-A155-07",67,"COAD","female","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,4270,0,4270,NA,NA,NA,NA
+"TCGA-D5-6531-01A-11R-1723-07",75,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,540,0,540,NA,NA,NA,NA
+"TCGA-D5-6928-01A-11R-1928-07",80,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,354,0,354,NA,NA,NA,NA
+"TCGA-DM-A1D6-01A-21R-A155-07",88,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,570,1,570,NA,NA,NA,NA
+"TCGA-D5-6539-01A-11R-1723-07",45,"COAD","female","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,380,0,380,NA,NA,NA,NA
+"TCGA-AA-3680-01A-01R-0905-07",67,"COAD","female","not reported","Stage IV","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,335,1,335,NA,NA,NA,NA
+"TCGA-DM-A1DA-01A-11R-A155-07",71,"COAD","female","white","Stage IIIC","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,228,1,228,NA,NA,NA,NA
+"TCGA-D5-6530-01A-11R-1723-07",53,"COAD","male","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,621,0,621,NA,NA,NA,NA
+"TCGA-AA-3660-01A-01R-1723-07",51,"COAD","female","not reported","Stage II","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,2375,0,2375,NA,NA,NA,NA
+"TCGA-AY-6197-01A-11R-1723-07",60,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,652,0,652,NA,NA,NA,NA
+"TCGA-A6-5664-01A-21R-1839-07",80,"COAD","male","black or african american","Stage IIIC","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,672,0,672,NA,NA,NA,NA
+"TCGA-AA-3818-01A-01R-0905-07",78,"COAD","female","not reported","Stage IIA","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,30,1,30,NA,NA,NA,NA
+"TCGA-AA-3531-01A-01R-0821-07",75,"COAD","female","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1035,0,1035,NA,NA,NA,NA
+"TCGA-G4-6588-01A-11R-1774-07",58,"COAD","female","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,796,0,796,NA,NA,NA,NA
+"TCGA-AA-3979-01A-01R-1022-07",84,"COAD","male","not reported","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,730,0,730,NA,NA,NA,NA
+"TCGA-A6-6649-01A-11R-1774-07",66,"COAD","male","white","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,735,0,735,NA,NA,NA,NA
+"TCGA-AZ-6601-01A-11R-1774-07",68,"COAD","male","white","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,3042,1,3042,NA,NA,NA,NA
+"TCGA-A6-4105-01A-02R-1774-07",79,"COAD","male","white","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,442,1,442,NA,NA,NA,NA
+"TCGA-AA-3697-01A-01R-1723-07",77,"COAD","male","not reported","Stage II","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,2587,0,2587,NA,NA,NA,NA
+"TCGA-AA-3496-01A-21R-1839-07",83,"COAD","female","not reported","Stage II","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,31,0,31,NA,NA,NA,NA
+"TCGA-AY-4071-01A-01R-1113-07",63,"COAD","female","white","Stage I","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,29,1,29,NA,NA,NA,NA
+"TCGA-AA-3556-01A-01R-0821-07",78,"COAD","male","not reported","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,700,0,700,NA,NA,NA,NA
+"TCGA-AA-3522-01A-01R-0821-07",67,"COAD","male","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1127,0,1127,NA,NA,NA,NA
+"TCGA-D5-5538-01A-01R-1653-07",60,"COAD","female","white","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,1661,1,1661,NA,NA,NA,NA
+"TCGA-CA-5255-01A-11R-1839-07",45,"COAD","male","asian","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,376,0,376,NA,NA,NA,NA
+"TCGA-AA-3858-01A-01R-0905-07",67,"COAD","male","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,945,0,945,NA,NA,NA,NA
+"TCGA-AA-3939-01A-01R-1022-07",83,"COAD","male","not reported","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,395,0,395,NA,NA,NA,NA
+"TCGA-A6-6781-01B-06R-A277-07",43,"COAD","male","white","Stage IIIC","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,598,0,598,NA,NA,NA,NA
+"TCGA-F4-6807-01A-11R-1839-07",51,"COAD","female","white","Stage IIIC","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1309,0,1309,NA,NA,NA,NA
+"TCGA-AA-3510-01A-01R-1410-07",70,"COAD","male","not reported","Stage II","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1946,0,1946,NA,NA,NA,NA
+"TCGA-A6-6652-01A-11R-1774-07",59,"COAD","male","black or african american","Stage IVA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,751,0,751,NA,NA,NA,NA
+"TCGA-AA-A00D-01A-01R-A002-07",70,"COAD","male","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,578,0,578,NA,NA,NA,NA
+"TCGA-AA-3971-01A-01R-1022-07",58,"COAD","male","not reported","Stage III","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,489,0,489,NA,NA,NA,NA
+"TCGA-D5-6529-01A-11R-1774-07",69,"COAD","male","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,614,0,614,NA,NA,NA,NA
+"TCGA-CM-6676-01A-11R-1839-07",82,"COAD","male","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,337,0,337,NA,NA,NA,NA
+"TCGA-AZ-4315-01A-01R-1410-07",61,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1776,0,1776,NA,NA,NA,NA
+"TCGA-CM-5349-01A-21R-1723-07",68,"COAD","female","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,915,0,915,NA,NA,NA,NA
+"TCGA-AA-3821-01A-01R-1022-07",81,"COAD","female","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,31,0,31,NA,NA,NA,NA
+"TCGA-AA-3532-01A-01R-0821-07",63,"COAD","male","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,882,0,882,NA,NA,NA,NA
+"TCGA-CM-6169-01A-11R-1653-07",67,"COAD","male","black or african american","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,396,0,396,NA,NA,NA,NA
+"TCGA-DM-A28H-01A-11R-A16W-07",50,"COAD","male","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,3561,0,3561,NA,NA,NA,NA
+"TCGA-CM-6164-01A-11R-1653-07",46,"COAD","female","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,883,0,883,NA,NA,NA,NA
+"TCGA-G4-6306-01A-11R-1774-07",71,"COAD","male","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1359,0,1359,NA,NA,NA,NA
+"TCGA-CA-6718-01A-11R-1839-07",46,"COAD","male","asian","Stage IIA","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,306,1,306,NA,NA,NA,NA
+"TCGA-G4-6311-01A-11R-1723-07",80,"COAD","male","white","Stage III","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1199,0,1199,NA,NA,NA,NA
+"TCGA-AA-A03J-01A-21R-A16W-07",65,"COAD","female","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1246,0,1246,NA,NA,NA,NA
+"TCGA-CM-5862-01A-01R-1653-07",80,"COAD","male","white","Stage IVA","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,153,1,153,NA,NA,NA,NA
+"TCGA-A6-5665-01A-01R-1653-07",84,"COAD","female","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,671,0,671,NA,NA,NA,NA
+"TCGA-QL-A97D-01A-12R-A41B-07",84,"COAD","female","black or african american","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,666,0,666,NA,NA,NA,NA
+"TCGA-AA-A01S-01A-21R-A083-07",47,"COAD","female","not reported","Stage III","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,31,0,31,NA,NA,NA,NA
+"TCGA-A6-6137-01A-11R-1774-07",55,"COAD","male","white","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,824,0,824,NA,NA,NA,NA
+"TCGA-AA-3966-01A-01R-1113-07",89,"COAD","female","not reported","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,61,0,61,NA,NA,NA,NA
+"TCGA-G4-6304-01A-11R-1928-07",66,"COAD","female","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1631,0,1631,NA,NA,NA,NA
+"TCGA-A6-3810-01B-04R-A277-07",62,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1111,0,1111,NA,NA,NA,NA
+"TCGA-AA-3973-01A-01R-1022-07",69,"COAD","male","not reported","Stage IV","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,397,0,397,NA,NA,NA,NA
+"TCGA-CA-6717-01A-11R-1839-07",57,"COAD","male","asian","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,388,0,388,NA,NA,NA,NA
+"TCGA-AA-3673-01A-01R-0905-07",53,"COAD","female","not reported","Stage II","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1522,0,1522,NA,NA,NA,NA
+"TCGA-A6-2672-01B-03R-2302-07",82,"COAD","female","white","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1419,0,1419,NA,NA,NA,NA
+"TCGA-AA-3955-01A-02R-1022-07",38,"COAD","male","not reported","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,638,0,638,NA,NA,NA,NA
+"TCGA-G4-6299-01A-11R-1774-07",69,"COAD","male","white","Stage IIIC","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,2268,0,2268,NA,NA,NA,NA
+"TCGA-AA-A00J-01A-02R-A002-07",80,"COAD","male","not reported","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,549,0,549,NA,NA,NA,NA
+"TCGA-D5-6540-01A-11R-1723-07",66,"COAD","male","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,491,0,491,NA,NA,NA,NA
+"TCGA-A6-2686-01A-01R-A32Z-07",81,"COAD","female","white","Stage IIA","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,1126,1,1126,NA,NA,NA,NA
+"TCGA-CA-6715-01A-21R-1839-07",63,"COAD","male","asian","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,383,0,383,NA,NA,NA,NA
+"TCGA-A6-A566-01A-11R-A28H-07",55,"COAD","female","black or african american","Unknown","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,758,1,758,NA,NA,NA,NA
+"TCGA-A6-5659-01A-01R-A278-07",82,"COAD","male","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,926,0,926,NA,NA,NA,NA
+"TCGA-A6-3808-01A-01R-1022-07",73,"COAD","male","white","Stage IIA","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1014,0,1014,NA,NA,NA,NA
+"TCGA-AA-A02W-01A-01R-A00A-07",73,"COAD","female","not reported","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1247,0,1247,NA,NA,NA,NA
+"TCGA-AA-3514-01A-02R-0821-07",81,"COAD","female","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,31,0,31,NA,NA,NA,NA
+"TCGA-AA-A01Z-01A-11R-A083-07",68,"COAD","male","not reported","Stage II","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1126,0,1126,NA,NA,NA,NA
+"TCGA-CM-6167-01A-11R-1653-07",57,"COAD","female","black or african american","Stage IIIC","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,456,0,456,NA,NA,NA,NA
+"TCGA-CM-4748-01A-01R-1410-07",53,"COAD","male","white","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,792,0,792,NA,NA,NA,NA
+"TCGA-AA-3989-01A-01R-1022-07",84,"COAD","male","not reported","Stage IV","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,242,1,242,NA,NA,NA,NA
+"TCGA-AA-3553-01A-01R-0821-07",61,"COAD","female","not reported","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,730,0,730,NA,NA,NA,NA
+"TCGA-F4-6569-01A-11R-1774-07",60,"COAD","male","white","Stage I","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,1087,0,1087,NA,NA,NA,NA
+"TCGA-CM-6678-01A-11R-1839-07",63,"COAD","female","white","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,335,0,335,NA,NA,NA,NA
+"TCGA-NH-A50V-01A-11R-A28H-07",69,"COAD","male","black or african american","Stage IIIB","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,588,0,588,NA,NA,NA,NA
+"TCGA-A6-A565-01A-31R-A28H-07",34,"COAD","female","black or african american","Stage IIIC","Adenocarcinoma","Unknown","Progressive Disease","Unknown","Primary Tumor","COAD",1,494,1,494,NA,NA,NA,NA
+"TCGA-AY-A54L-01A-11R-A28H-07",74,"COAD","female","black or african american","Unknown","Adenocarcinoma","Unknown","Complete Remission/Response","Unknown","Primary Tumor","COAD",0,525,0,525,NA,NA,NA,NA
